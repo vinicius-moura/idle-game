@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Pirates: From Puddles to the Cosmos</title>
+
+    <!-- This line imports the stylesheet. The browser will look for "style.css" in the same folder. -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- It's good practice to load fonts in the HTML head -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 
+      This line imports the JavaScript file. 
+      The "defer" attribute tells the browser to load the script after the HTML document has been fully parsed,
+      which is the modern and preferred way to include scripts at the end of the body.
+    -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <div id="game-container" class="main-container">
+        <!-- LEFT COLUMN: CLICKER & STATS -->
+        <div class="column" id="left-column">
+            <h1>Paper Boat Pirates (Temporary Name)</h1>
+            
+            <div id="stats-container">
+                <div id="reputation-display" data-tooltip="This is your Pirate Reputation. More is... more.">0</div>
+                <div id="rps-display">earning 0 per second</div>
+            </div>
+
+            <div id="clicker-area" class="btn-click-container">
+                <button id="clicker-btn" class="btn-click" data-tooltip="Click to gain the respect of imaginary sea squirrels.">
+                    <!-- The ship SVG will be injected here by JavaScript -->
+                </button>
+            </div>
+            
+             <div id="prestige-container">
+                <div id="prestige-info">
+                    Legendary Level: <span id="legend-level">0</span> (+<span id="legend-bonus">0</span>% Bonus)
+                </div>
+                <button id="prestige-btn" class="buy-btn" disabled>Embrace Legendary Piracy</button>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: UPGRADES -->
+        <div class="column" id="right-column">
+            <h2>The Grand Scheme (aka The Shop)</h2>
+            <div id="upgrades-container">
+                <!-- Upgrades will be dynamically inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
