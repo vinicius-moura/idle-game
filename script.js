@@ -48,10 +48,10 @@ const upgrades = [
 ];
 
 const shipSVGs = {
-    paper_boat: '<img class="ship-img" src="assets/ships/paper-boat.svg" alt="Paper Boat">',
-    bathtub_barque: '<img class="ship-img" src="assets/ships/paper-boat.svg" alt="Paper Boat">',
-    steampunk_airship: '<img class="ship-img" src="assets/ships/paper-boat.svg" alt="Paper Boat">',
-    cosmic_clipper: '<img class="ship-img" src="assets/ships/paper-boat.svg" alt="Paper Boat">',
+    paper_boat: '<img class="ship-img" src="assets/ships/ship_1.png" alt="Paper Boat">',
+    bathtub_barque: '<img class="ship-img" src="assets/ships/ship_2.png" alt="Paper Boat">',
+    steampunk_airship: '<img class="ship-img" src="assets/ships/ship_3.png" alt="Paper Boat">',
+    cosmic_clipper: '<img class="ship-img" src="assets/ships/ship_4.png" alt="Paper Boat">',
 };
 
 // --- GAME LOGIC FUNCTIONS ---
