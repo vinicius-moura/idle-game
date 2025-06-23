@@ -48,32 +48,10 @@ const upgrades = [
 ];
 
 const shipSVGs = {
-    paper_boat: `
-        <svg class="ship-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <path d="M 10 70 L 50 90 L 90 70 L 80 70 L 50 80 L 20 70 Z" fill="#d3cba7"/>
-          <path d="M 50 20 L 50 80" stroke="#a0522d" stroke-width="3"/>
-          <path d="M 50 20 L 80 45 L 50 45 Z" fill="#fef9e7"/>
-        </svg>`,
-    bathtub_barque: `
-        <svg class="ship-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 60 C 10 80, 20 95, 50 95 C 80 95, 90 80, 90 60 L 80 60 L 80 70 L 20 70 L 20 60 Z" fill="#e74c3c"/>
-            <rect x="20" y="50" width="60" height="10" fill="#f1c40f"/>
-            <path d="M 50 20 L 50 70" stroke="#7f8c8d" stroke-width="4"/>
-            <circle cx="50" cy="15" r="5" fill="#3498db"/>
-        </svg>`,
-    steampunk_airship: `
-         <svg class="ship-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="50" cy="40" rx="45" ry="20" fill="#c0392b" />
-            <path d="M 20 60 L 80 60 L 75 75 L 25 75 Z" fill="#a0522d" />
-            <rect x="65" y="75" width="10" height="15" fill="#f1c40f" />
-            <circle cx="50" cy="40" r="5" fill="#f1c40f" />
-        </svg>`,
-    cosmic_clipper: `
-         <svg class="ship-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 50 10 L 90 60 L 50 90 L 10 60 Z" fill="#2c3e50"/>
-            <path d="M 50 25 L 75 60 L 50 75 L 25 60 Z" fill="#ecf0f1"/>
-            <circle cx="50" cy="60" r="10" fill="#3498db" />
-        </svg>`
+    paper_boat: '<img class="ship-img" src="assets/ships/paper-boat.svg" alt="Paper Boat">',
+    bathtub_barque: '<img class="ship-img" src="assets/ships/paper-boat.svg" alt="Paper Boat">',
+    steampunk_airship: '<img class="ship-img" src="assets/ships/paper-boat.svg" alt="Paper Boat">',
+    cosmic_clipper: '<img class="ship-img" src="assets/ships/paper-boat.svg" alt="Paper Boat">',
 };
 
 // --- GAME LOGIC FUNCTIONS ---

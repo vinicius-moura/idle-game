@@ -1,17 +1,9 @@
 @use "sass:color";
 
-/* --- Basic Setup & Fonts --- */
-
 $bg-color: #4698ce;
-
-/* Sky Blue */
 $panel-bg: #fef9e7;
-
-/* Creamy Paper */
 $text-color: #3d3d3d;
 $accent-color: #e74c3c;
-
-/* Pirate Red */
 $gold-color: #f1c40f;
 $disabled-color: #bdc3c7;
 $font-main: 'arial';
@@ -44,26 +36,27 @@ body {
     height: 100vh;
     gap: 20px;
     background-color: $panel-bg;
-}
 
-#left-column {
-    flex: 1;
-    min-width: 300px;
-}
+    &.left-column {
+        flex: 1;
+        min-width: 300px;
+    }
 
-#right-column {
-    flex: 2;
-    min-width: 400px;
-    overflow-y: auto;
+    &.right-column {
+        flex: 2;
+        min-width: 400px;
+        overflow-y: auto;
 
-    h2 {
-        font-family: $font-display;
-        font-size: 2rem;
-        text-align: center;
-        margin-top: 20px;
-        margin-bottom: 0;
+        h2 {
+            font-family: $font-display;
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
     }
 }
+
 
 /* --- Left Column: Clicker & Stats --- */
 
@@ -75,31 +68,32 @@ h1 {
     text-shadow: 2px 2px #fff;
 }
 
-#stats-container {
+.stats-container {
     text-align: center;
     padding: 15px;
     background: #fff;
     border-radius: 10px;
+
+    .reputation-display {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $gold-color;
+        text-shadow: 1px 1px #000;
+    }
+
+    .rps-display {
+        font-size: 1rem;
+        color: #7f8c8d;
+    }
+
 }
 
-#reputation-display {
-    font-size: 2rem;
-    font-weight: 700;
-    color: $gold-color;
-    text-shadow: 1px 1px #000;
-}
-
-#rps-display {
-    font-size: 1rem;
-    color: #7f8c8d;
-}
-
-.btn-click-container {
+.clicker-area {
     display: flex;
     justify-content: center;
     position: relative;
 
-    .btn-click {
+    .clicker-btn {
         background: none;
         border: none;
         cursor: pointer;
@@ -109,6 +103,10 @@ h1 {
 
         &:active {
             transform: scale(0.95);
+        }
+
+        .ship-img {
+            height: 200px;
         }
     }
 }
@@ -191,24 +189,26 @@ h1 {
 
 /* --- Prestige System --- */
 
-#prestige-container {
+.prestige-container {
     padding-top: 20px;
     margin-top: 20px;
     border-top: 2px dashed $disabled-color;
+
+    .prestige-info {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+
+    .prestige-btn {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2rem;
+        font-family: $font-display;
+    }
+
 }
 
-#prestige-info {
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-}
-
-#prestige-btn {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.2rem;
-    font-family: $font-display;
-}
 
 /* --- Tooltips --- */
 

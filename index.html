@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paper Pirates: From Puddles to the Cosmos</title>
+    <title>Paper Boat Pirates(Temporary Name)</title>
 
     <!-- This line imports the stylesheet. The browser will look for "style.css" in the same folder. -->
     <link rel="stylesheet" href="style.css">
@@ -24,30 +24,30 @@
 
     <div id="game-container" class="main-container">
         <!-- LEFT COLUMN: CLICKER & STATS -->
-        <div class="column" id="left-column">
+        <div id="left-column" class="column left-column">
             <h1>Paper Boat Pirates (Temporary Name)</h1>
             
-            <div id="stats-container">
-                <div id="reputation-display" data-tooltip="This is your Pirate Reputation. More is... more.">0</div>
-                <div id="rps-display">earning 0 per second</div>
+            <div id="stats-container" class="stats-container">
+                <div id="reputation-display" class="reputation-display" data-tooltip="This is your Pirate Reputation. More is... more.">0</div>
+                <div id="rps-display" class="rps-display">earning 0 per second</div>
             </div>
 
-            <div id="clicker-area" class="btn-click-container">
-                <button id="clicker-btn" class="btn-click" data-tooltip="Click to gain the respect of imaginary sea squirrels.">
+            <div id="clicker-area" class="clicker-area">
+                <button id="clicker-btn" class="clicker-btn" data-tooltip="Click to gain the respect of imaginary sea squirrels.">
                     <!-- The ship SVG will be injected here by JavaScript -->
                 </button>
             </div>
             
-             <div id="prestige-container">
-                <div id="prestige-info">
+             <div id="prestige-container" class="prestige-container">
+                <div id="prestige-info" class="prestige-info">
                     Legendary Level: <span id="legend-level">0</span> (+<span id="legend-bonus">0</span>% Bonus)
                 </div>
-                <button id="prestige-btn" class="buy-btn" disabled>Embrace Legendary Piracy</button>
+                <button id="prestige-btn" class="prestige-btn" disabled>Embrace Legendary Piracy</button>
             </div>
         </div>
 
         <!-- RIGHT COLUMN: UPGRADES -->
-        <div class="column" id="right-column">
+        <div class="column right-column" id="right-column">
             <h2>The Grand Scheme (aka The Shop)</h2>
             <div id="upgrades-container">
                 <!-- Upgrades will be dynamically inserted here by JavaScript -->
