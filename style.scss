@@ -258,7 +258,7 @@ h1 {
     }
 }
 
-/* Modal overlay (fundo escuro) */
+/* Modal overlay */
 .modal {
   position: fixed;
   top: 0;
@@ -269,10 +269,10 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Fica acima de todo o conteúdo */
+  z-index: 9999;
 }
 
-/* Conteúdo da modal */
+/* Modal Content */
 .modal-content {
   background-color: white;
   padding: 20px 30px;
@@ -285,7 +285,7 @@ h1 {
   animation: fadeIn 0.3s ease-out;
 }
 
-/* Botão de fechar (X) */
+/* Close button (X) */
 .modal-close {
   position: absolute;
   top: 10px;
@@ -300,7 +300,7 @@ h1 {
   color: red;
 }
 
-/* Animação de entrada opcional */
+/* animation to apear */
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
