@@ -1,0 +1,67 @@
+@use '../base/variables' as *;
+
+h1 {
+  font-family: $font-display;
+  font-size: 2.8rem;
+  text-align: center;
+  color: $accent-color;
+  text-shadow: 2px 2px #fff;
+}
+
+.stats-container {
+  text-align: center;
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+
+  .reputation-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $gold-color;
+    text-shadow: 1px 1px #000;
+  }
+
+  .rps-display {
+    font-size: 1rem;
+    color: #7f8c8d;
+  }
+}
+
+.clicker-area {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  .clicker-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s ease-out;
+    animation: bob 3s ease-in-out infinite;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    .ship-img {
+      height: 200px;
+    }
+  }
+}
+
+.floating-text {
+  position: absolute;
+  font-family: $font-display;
+  font-size: 1.5rem;
+  color: $gold-color;
+  text-shadow: 1px 1px #000;
+  pointer-events: none;
+  animation: float-up 1s ease-out forwards;
+}
+
+.ship-svg {
+  width: 150px;
+  height: auto;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+}

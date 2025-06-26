@@ -1,0 +1,36 @@
+@use '../base/variables' as *;
+
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  gap: 20px;
+  background-color: $panel-bg;
+
+  &.left-column {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  &.right-column {
+    flex: 2;
+    min-width: 400px;
+    overflow-y: auto;
+
+    h2 {
+      font-family: $font-display;
+      font-size: 2rem;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 0;
+    }
+  }
+}
