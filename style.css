@@ -9,7 +9,6 @@ body {
   margin: 0;
 }
 
-/* --- Game Container & Layout --- */
 .main-container {
   display: flex;
   flex-wrap: wrap;
@@ -42,7 +41,23 @@ body {
   margin-bottom: 0;
 }
 
-/* --- Left Column: Clicker & Stats --- */
+button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+button:hover {
+  background-color: rgb(168.2876712329, 34.5205479452, 20.7123287671);
+}
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
 h1 {
   font-family: "arial";
   font-size: 2.8rem;
@@ -54,8 +69,7 @@ h1 {
 .stats-container {
   text-align: center;
   padding: 15px;
-  background: #fff;
-  border-radius: 10px;
+  background: #000000;
 }
 .stats-container .reputation-display {
   font-size: 2rem;
@@ -88,12 +102,6 @@ h1 {
   height: 200px;
 }
 
-.ship-svg {
-  width: 150px;
-  height: auto;
-  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
-}
-
 .floating-text {
   position: absolute;
   font-family: "arial";
@@ -104,7 +112,12 @@ h1 {
   animation: float-up 1s ease-out forwards;
 }
 
-/* --- Right Column: Upgrades --- */
+.ship-svg {
+  width: 150px;
+  height: auto;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+}
+
 .upgrade {
   display: flex;
   align-items: center;
@@ -137,24 +150,7 @@ h1 {
   font-weight: 700;
   color: #f1c40f;
 }
-.upgrade .buy-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
-.upgrade .buy-btn:hover {
-  background-color: #c0392b;
-}
-.upgrade .buy-btn:disabled {
-  background-color: #bdc3c7;
-  cursor: not-allowed;
-}
 
-/* --- Prestige System --- */
 .prestige-container {
   padding-top: 20px;
   margin-top: 20px;
@@ -172,7 +168,43 @@ h1 {
   font-family: "arial";
 }
 
-/* --- Tooltips --- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px 30px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #444;
+  cursor: pointer;
+}
+.modal-close:hover {
+  color: red;
+}
+
 [data-tooltip] {
   position: relative;
 }
@@ -191,7 +223,6 @@ h1 {
   z-index: 10;
 }
 
-/* --- Animations --- */
 @keyframes bob {
   0%, 100% {
     transform: translateY(0);
@@ -210,49 +241,6 @@ h1 {
     opacity: 0;
   }
 }
-/* Modal overlay */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: white;
-  padding: 20px 30px;
-  border-radius: 12px;
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  position: relative;
-  animation: fadeIn 0.3s ease-out;
-}
-
-/* Close button (X) */
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #444;
-  cursor: pointer;
-}
-
-.modal-close:hover {
-  color: red;
-}
-
-/* animation to apear */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -261,6 +249,33 @@ h1 {
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .column {
+    height: auto;
+    min-width: 100%;
+  }
+  .upgrade {
+    flex-wrap: wrap;
+  }
+  .upgrade .upgrade-stats {
+    font-size: 1rem;
+  }
+  .upgrade .buy-btn {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .clicker-btn .ship-img {
+    height: 120px;
   }
 }
 

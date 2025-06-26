@@ -1,0 +1,30 @@
+@use "../base/variables" as *;
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .column {
+    height: auto;
+    min-width: 100%;
+  }
+  .upgrade {
+    flex-wrap: wrap;
+    .upgrade-stats {
+      font-size: 1rem;
+    }
+    .buy-btn {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .clicker-btn .ship-img {
+    height: 120px;
+  }
+}

@@ -1,0 +1,20 @@
+  @use '../base/variables' as *;
+
+  button {
+      background-color: $accent-color;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+
+      &:hover {
+          background-color: $sccent-color-hover;
+      }
+
+      &:disabled {
+          background-color: $disabled-color;
+          cursor: not-allowed;
+      }
+  }

@@ -31,23 +31,4 @@
       color: $gold-color;
     }
   }
-
-  .buy-btn {
-    background-color: $accent-color;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-
-    &:hover {
-      background-color: #c0392b;
-    }
-
-    &:disabled {
-      background-color: $disabled-color;
-      cursor: not-allowed;
-    }
-  }
 }
