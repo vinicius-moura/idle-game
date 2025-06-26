@@ -16,7 +16,6 @@ export const PRESTIGE_COST_BASE = 1e9;
 export const PRESTIGE_BONUS_PER_LEVEL = 0.05;
 
 export const init = (isReset = false) => {
-    console.log("init");
     gameState = {
         reputation: 0,
         reputationPerSecond: 0,
@@ -26,7 +25,6 @@ export const init = (isReset = false) => {
         currentShip: 'paper_boat'
     };
     if (!isReset) {
-        console.log("not reset");
         loadGame();
     }
 };
@@ -35,14 +33,12 @@ export const saveGame = () => {
     try {
         localStorage.setItem('paperPiratesSave', JSON.stringify(gameState));
         localStorage.setItem('paperPiratesLastSaveTime', Date.now());
-        console.log('SALVO');
     } catch (e) {
         console.error("Could not save game state:", e);
     }
 };
 
 export const loadGame = () => {
-    console.log('LOAD');
     const savedGame = localStorage.getItem('paperPiratesSave');
     if (savedGame) {
         try {
@@ -58,7 +54,6 @@ export const loadGame = () => {
 };
 
 const offlineTime = () => {
-    console.log("offlineTime() chamada");
     const lastTime = parseInt(localStorage.getItem('paperPiratesLastSaveTime'));
     if (!isNaN(lastTime)) {
         const now = Date.now();
