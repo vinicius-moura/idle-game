@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   font-family: "arial";
   background-color: #4698ce;
@@ -208,6 +209,59 @@ h1 {
   100% {
     transform: translateY(-50px);
     opacity: 0;
+  }
+}
+/* Modal overlay (fundo escuro) */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Fica acima de todo o conteúdo */
+}
+
+/* Conteúdo da modal */
+.modal-content {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Botão de fechar (X) */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #444;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: red;
+}
+
+/* Animação de entrada opcional */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

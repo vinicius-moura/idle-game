@@ -103,3 +103,23 @@ export const showFloatingText = (text) => {
         floatie.remove();
     }, 1000);
 };
+
+export const showOfflineModal = (secondsPassed, reputationGained) => {
+    const modal = document.getElementById('offline-modal');
+    const message = document.getElementById('offline-modal-message');
+    const closeBtn = document.getElementById('offline-modal-close');
+    const okBtn = document.getElementById('offline-modal-ok');
+
+    message.textContent = `While you went out for ${secondsPassed} seconds, you earned ${formatNumber(reputationGained)} reputation!`;
+
+    modal.style.display = 'flex';
+
+    const closeModal = () => {
+        modal.style.display = 'none';
+        closeBtn.removeEventListener('click', closeModal);
+        okBtn.removeEventListener('click', closeModal);
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    okBtn.addEventListener('click', closeModal);
+};
