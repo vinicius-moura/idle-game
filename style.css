@@ -258,9 +258,11 @@ h1 {
   }
 }
 @media (max-width: 768px) {
+  html,
   body {
+    height: 100%;
+    width: 100%;
     overflow: hidden;
-    height: 100vh;
   }
   .main-container {
     flex-direction: column;
@@ -291,6 +293,7 @@ h1 {
   .column.right-column {
     margin-top: 400px;
     height: calc(100vh - 400px);
+    min-width: auto;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -323,6 +326,18 @@ h1 {
 @media (max-width: 480px) {
   h1 {
     font-size: 1.5rem;
+  }
+  .column.right-column .upgrade {
+    justify-content: space-between;
+  }
+  .column.right-column .upgrade .upgrade-info {
+    max-width: 60%;
+  }
+  .column.right-column h2 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1rem;
   }
   .clicker-btn .ship-img {
     height: 120px;
