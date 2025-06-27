@@ -20,9 +20,12 @@ h1 {
     text-shadow: 1px 1px #000;
   }
 
-  .rps-display {
+  .rps-display-container {
     font-size: 1rem;
     color: #7f8c8d;
+    p {
+      display: inline;
+    }
   }
 }
 

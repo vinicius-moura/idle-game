@@ -32,7 +32,7 @@ export const recalculateStats = () => {
 
 export const updateUI = () => {
     reputationDisplay.textContent = formatNumber(gameState.reputation);
-    rpsDisplay.textContent = `earning ${formatNumber(gameState.reputationPerSecond)} per second`;
+    rpsDisplay.textContent = `${formatNumber(gameState.reputationPerSecond)}`;
 
     document.querySelectorAll('.buy-btn').forEach(btn => {
         const cost = parseFloat(btn.dataset.cost);

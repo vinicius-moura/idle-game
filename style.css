@@ -82,9 +82,12 @@ h1 {
   color: #f1c40f;
   text-shadow: 1px 1px #000;
 }
-.stats-container .rps-display {
+.stats-container .rps-display-container {
   font-size: 1rem;
   color: #7f8c8d;
+}
+.stats-container .rps-display-container p {
+  display: inline;
 }
 
 .clicker-area {
@@ -285,7 +288,7 @@ h1 {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
-  .column.right-column #upgrades-container {
+  .column.right-column .upgrades-container {
     padding-bottom: 80px;
   }
   .column.right-column h2 {
