@@ -221,7 +221,7 @@ h1 {
   left: 50%;
   transform: translateX(-50%);
   background-color: #3d3d3d;
-  color: white;
+  color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 0.8rem;
@@ -282,6 +282,12 @@ h1 {
     z-index: 100;
     overflow: hidden;
   }
+  .column.left-column .stats-container {
+    padding: 5px;
+  }
+  .column.left-column .stats-container .rps-display-container {
+    font-size: 0.75rem;
+  }
   .column.right-column {
     margin-top: 400px;
     height: calc(100vh - 400px);
@@ -302,7 +308,7 @@ h1 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   .clicker-area .clicker-btn .ship-img {
-    height: 115px;
+    height: 140px;
   }
   .upgrade {
     flex-wrap: wrap;
