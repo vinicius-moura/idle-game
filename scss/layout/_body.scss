@@ -9,4 +9,5 @@ body {
   align-items: center;
   user-select: none;
   margin: 0;
+  touch-action: manipulation; // avoid zoom on mobile by double click
 }

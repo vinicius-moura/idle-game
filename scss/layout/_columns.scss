@@ -8,11 +8,16 @@
   max-width: 1200px;
 }
 
+.logo-img {
+  height: auto;
+  width: 60%;
+  margin: 10px auto;
+}
+
 .column {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  gap: 20px;
   background-color: $panel-bg;
 
   &.left-column {
@@ -29,8 +34,7 @@
       font-family: $font-display;
       font-size: 2rem;
       text-align: center;
-      margin-top: 20px;
-      margin-bottom: 0;
+      margin: 20px 0;
     }
   }
 }

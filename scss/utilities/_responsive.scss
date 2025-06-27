@@ -1,19 +1,54 @@
 @use "../base/variables" as *;
 
 @media (max-width: 768px) {
+
   .main-container {
     flex-direction: column;
     align-items: stretch;
+    gap: 0;
   }
+
+  .logo-img {
+    width: 25%;
+  }
+
   .column {
     height: auto;
     min-width: 100%;
+
+    &.left-column {
+      position: fixed;
+      height: 400px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+    }
+
+    &.right-column {
+      overflow-y: auto;
+      margin-top: 400px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
   }
+
+  .clicker-area {
+    .clicker-btn {
+      .ship-img {
+        height: 115px;
+      }
+    }
+  }
+
   .upgrade {
     flex-wrap: wrap;
+
     .upgrade-stats {
       font-size: 1rem;
     }
+
     .buy-btn {
       width: 100%;
     }
@@ -22,8 +57,9 @@
 
 @media (max-width: 480px) {
   h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
+
   .clicker-btn .ship-img {
     height: 120px;
   }

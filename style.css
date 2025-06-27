@@ -7,6 +7,7 @@ body {
   align-items: center;
   user-select: none;
   margin: 0;
+  touch-action: manipulation;
 }
 
 .main-container {
@@ -17,11 +18,16 @@ body {
   max-width: 1200px;
 }
 
+.logo-img {
+  height: auto;
+  width: 60%;
+  margin: 10px auto;
+}
+
 .column {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  gap: 20px;
   background-color: #fef9e7;
 }
 .column.left-column {
@@ -37,8 +43,7 @@ body {
   font-family: "arial";
   font-size: 2rem;
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin: 20px 0;
 }
 
 button {
@@ -152,13 +157,11 @@ h1 {
 }
 
 .prestige-container {
-  padding-top: 20px;
-  margin-top: 20px;
   border-top: 2px dashed #bdc3c7;
 }
 .prestige-container .prestige-info {
   text-align: center;
-  margin-bottom: 10px;
+  margin: 10px;
   font-size: 0.9rem;
 }
 .prestige-container .prestige-btn {
@@ -255,10 +258,31 @@ h1 {
   .main-container {
     flex-direction: column;
     align-items: stretch;
+    gap: 0;
+  }
+  .logo-img {
+    width: 25%;
   }
   .column {
     height: auto;
     min-width: 100%;
+  }
+  .column.left-column {
+    position: fixed;
+    height: 400px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+  }
+  .column.right-column {
+    overflow-y: auto;
+    margin-top: 400px;
+  }
+  .column.right-column h2 {
+    font-size: 1.5rem;
+  }
+  .clicker-area .clicker-btn .ship-img {
+    height: 115px;
   }
   .upgrade {
     flex-wrap: wrap;
@@ -272,7 +296,7 @@ h1 {
 }
 @media (max-width: 480px) {
   h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   .clicker-btn .ship-img {
     height: 120px;
