@@ -62,7 +62,9 @@ const offlineTime = () => {
 
         gameState.reputation += reputationGained;
 
-        // Troque o alert pelo modal
-        showOfflineModal(secondsPassed, reputationGained);
+        // shoe offline modal only after 10 minutes
+        if(secondsPassed >= 600 && reputationGained > 0){
+            showOfflineModal(secondsPassed, reputationGained);
+        }
     }
 }
