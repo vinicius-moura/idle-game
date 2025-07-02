@@ -93,9 +93,14 @@ const shipSVGs = {
 };
 
 export const showFloatingText = (text) => {
+    const formatedNumber = Number(text.toFixed(3));
     const floatie = document.createElement('div');
     floatie.className = 'floating-text';
-    floatie.textContent = text;
+    if (Number.isInteger(formatedNumber)) {
+        floatie.textContent = `+${text}`;
+    } else {
+        floatie.textContent = `+${formatedNumber}`;
+    }
     floatie.style.left = `${Math.random() * 40 + 30}%`;
     clickerArea.appendChild(floatie);
 
