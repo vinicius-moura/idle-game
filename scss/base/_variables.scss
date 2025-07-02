@@ -1,11 +1,14 @@
 @use 'sass:color';
 
-$bg-color: #4698ce;
+$bg-color: #378ac2;
 $panel-bg: #fef9e7;
 $text-color: #3d3d3d;
-$accent-color: #e74c3c;
-$sccent-color-hover: color.adjust($accent-color, $lightness: -20%);
-$gold-color: #f1c40f;
+$accent-color: #bd2b1b;
+$button-color: $accent-color;
+$button-color-hover: color.adjust($button-color, $lightness: -20%);
+$prestige-button-color: #daa520;
+$prestige-button-color-hover: color.adjust($prestige-button-color, $lightness: -20%);
+$gold-color: #daa520;
 $disabled-color: #bdc3c7;
 $font-main: "Fjalla One", sans-serif;
 $font-display: "Fjalla One", sans-serif;

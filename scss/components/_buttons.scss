@@ -1,7 +1,7 @@
   @use '../base/variables' as *;
 
   button {
-      background-color: $accent-color;
+      background-color: $button-color;
       color: #fff;
       border: none;
       padding: 10px 15px;
@@ -11,7 +11,7 @@
       font-family: $font-main;
 
       &:hover {
-          background-color: $sccent-color-hover;
+          background-color: $button-color-hover;
       }
 
       &:disabled {

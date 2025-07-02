@@ -14,5 +14,12 @@
     padding: 15px;
     font-size: 1.2rem;
     font-family: $font-display;
+    background-color: $prestige-button-color-hover;
+    &:hover{
+      background-color: $prestige-button-color-hover;
+    }
+    &:disabled {
+      background-color: $disabled-color;
+    }
   }
 }
