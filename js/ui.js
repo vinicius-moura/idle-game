@@ -17,6 +17,7 @@ export const recalculateStats = () => {
 
     for (const upgrade of upgrades) {
         const level = gameState.upgrades[upgrade.id]?.level || 0;
+
         if (level > 0) {
             if (upgrade.type === 'click') {
                 newClickPower += upgrade.effect * level;
@@ -36,11 +37,13 @@ export const updateUI = () => {
 
     document.querySelectorAll('.buy-btn').forEach(btn => {
         const cost = parseFloat(btn.dataset.cost);
+
         btn.disabled = gameState.reputation < cost;
     });
 
     document.querySelectorAll('.upgrade').forEach(el => {
         const cost = parseFloat(el.dataset.cost);
+
         if (gameState.reputation < cost) {
             el.classList.add('disabled');
         } else {
@@ -49,6 +52,7 @@ export const updateUI = () => {
     });
 
     const prestigeCost = PRESTIGE_COST_BASE * Math.pow(10, gameState.prestige.level);
+
     prestigeBtn.disabled = gameState.reputation < prestigeCost;
     prestigeBtn.dataset.tooltip = `Requires ${formatNumber(prestigeCost)} Reputation to reset for a permanent bonus.`;
     legendLevelDisplay.textContent = gameState.prestige.level;
@@ -64,9 +68,11 @@ export const renderUpgrades = () => {
     upgradesContainer.innerHTML = '';
     for (const upgrade of upgrades) {
         const state = gameState.upgrades[upgrade.id] || { level: 0, cost: upgrade.baseCost };
-        if (upgrade.type === 'ship' && state.level > 0) continue;
+
+        if (upgrade.type === 'ship' && state.level > 0) {continue;}
 
         const el = document.createElement('div');
+
         el.className = 'upgrade';
         el.dataset.cost = state.cost;
 
@@ -95,6 +101,7 @@ const shipSVGs = {
 export const showFloatingText = (text) => {
     const formatedNumber = Number(text.toFixed(3));
     const floatie = document.createElement('div');
+
     floatie.className = 'floating-text';
     if (Number.isInteger(formatedNumber)) {
         floatie.textContent = `+${text}`;
@@ -131,15 +138,18 @@ export const showOfflineModal = (secondsPassed, reputationGained) => {
 
 function formatDuration(seconds) {
     const days = Math.floor(seconds / (24 * 3600));
+
     seconds %= 24 * 3600;
     const hours = Math.floor(seconds / 3600);
+
     seconds %= 3600;
     const minutes = Math.floor(seconds / 60);
 
     const parts = [];
-    if (days > 0) parts.push(`${days} day${days !== 1 ? 's' : ''}`);
-    if (hours > 0) parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`);
-    if (minutes > 0) parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`);
+
+    if (days > 0) {parts.push(`${days} day${days !== 1 ? 's' : ''}`);}
+    if (hours > 0) {parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`);}
+    if (minutes > 0) {parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`);}
 
     if (parts.length === 1) {
         return parts[0];
@@ -150,5 +160,6 @@ function formatDuration(seconds) {
     }
 
     const last = parts.pop();
+
     return parts.join(', ') + ' and ' + last;
 }

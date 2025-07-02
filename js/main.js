@@ -13,6 +13,7 @@ const prestigeBtn = document.getElementById('prestige-btn');
 
 clickerBtn.addEventListener('click', () => {
     const amount = gameState.clickPower;
+
     gameState.reputation += amount;
     showFloatingText(amount);
     updateUI();

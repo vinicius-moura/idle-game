@@ -34,20 +34,22 @@ export const saveGame = () => {
         localStorage.setItem('paperPiratesSave', JSON.stringify(gameState));
         localStorage.setItem('paperPiratesLastSaveTime', Date.now());
     } catch (e) {
-        console.error("Could not save game state:", e);
+        console.error('Could not save game state:', e);
     }
 };
 
 export const loadGame = () => {
     const savedGame = localStorage.getItem('paperPiratesSave');
+
     if (savedGame) {
         try {
             const loadedState = JSON.parse(savedGame);
+
             gameState = Object.assign({}, gameState, loadedState);
             gameState.prestige = Object.assign({}, { level: 0, permanentBonus: 1 }, loadedState.prestige);
             offlineTime();
         } catch (e) {
-            console.error("Could not load saved game state:", e);
+            console.error('Could not load saved game state:', e);
             init(true);
         }
     }
@@ -55,6 +57,7 @@ export const loadGame = () => {
 
 const offlineTime = () => {
     const lastTime = parseInt(localStorage.getItem('paperPiratesLastSaveTime'));
+
     if (!isNaN(lastTime)) {
         const now = Date.now();
         const secondsPassed = Math.floor((now - lastTime) / 1000);
@@ -67,4 +70,4 @@ const offlineTime = () => {
             showOfflineModal(secondsPassed, reputationGained);
         }
     }
-}
+};
