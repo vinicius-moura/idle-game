@@ -59,6 +59,7 @@ button {
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.1s;
+  font-family: "Fjalla One", sans-serif;
 }
 button:hover {
   background-color: rgb(168.2876712329, 34.5205479452, 20.7123287671);
