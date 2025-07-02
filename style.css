@@ -40,10 +40,15 @@ body {
   overflow-y: auto;
 }
 .column.right-column h2 {
-  font-family: "arial";
-  font-size: 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 20px 0;
   text-align: center;
-  margin: 20px 0;
+  font-size: 2rem;
+  font-family: "arial";
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 button {
@@ -301,14 +306,9 @@ h1 {
     padding-bottom: 80px;
   }
   .column.right-column h2 {
-    position: sticky;
-    top: 0;
     background: #fef9e7;
-    z-index: 10;
     padding: 15px 0;
-    margin: 0;
     font-size: 1.5rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   .clicker-area .clicker-btn .ship-img {
     height: 140px;
