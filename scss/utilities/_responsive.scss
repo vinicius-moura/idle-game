@@ -17,7 +17,9 @@
   }
 
   .logo-img {
-    width: 25%;
+    height: 20%;
+    width: auto;
+    margin: 0 auto;
   }
 
   .column {
@@ -26,10 +28,11 @@
 
     &.left-column {
       position: fixed;
-      height: 400px;
+      height: $left-column-height;
       width: 100%;
       z-index: 100;
       overflow: hidden;
+      justify-content: space-between;
 
       .stats-container {
         padding: 5px;
@@ -41,8 +44,8 @@
     }
 
     &.right-column {
-      margin-top: 400px;
-      height: calc(100vh - 400px);
+      margin-top: $left-column-height;
+      height: calc(100vh - $left-column-height);
       min-width: auto;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch; // iOS scroll

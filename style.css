@@ -48,6 +48,7 @@ body {
   text-align: center;
   font-size: 2rem;
   font-family: "Fjalla One", sans-serif;
+  background-color: #fef9e7;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -277,7 +278,9 @@ h1 {
     height: 100vh;
   }
   .logo-img {
-    width: 25%;
+    height: 20%;
+    width: auto;
+    margin: 0 auto;
   }
   .column {
     height: auto;
@@ -285,10 +288,11 @@ h1 {
   }
   .column.left-column {
     position: fixed;
-    height: 400px;
+    height: 55vh;
     width: 100%;
     z-index: 100;
     overflow: hidden;
+    justify-content: space-between;
   }
   .column.left-column .stats-container {
     padding: 5px;
@@ -297,8 +301,8 @@ h1 {
     font-size: 0.75rem;
   }
   .column.right-column {
-    margin-top: 400px;
-    height: calc(100vh - 400px);
+    margin-top: 55vh;
+    height: 45vh;
     min-width: auto;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
