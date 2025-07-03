@@ -261,7 +261,7 @@ h1 {
     opacity: 0;
   }
 }
-@keyframes fadeIn {
+@keyframes fade-in {
   from {
     opacity: 0;
     transform: scale(0.9);
@@ -271,7 +271,7 @@ h1 {
     transform: scale(1);
   }
 }
-@media (max-width: 768px) {
+@media (width <= 768px) {
   html,
   body {
     height: 100%;
@@ -335,7 +335,7 @@ h1 {
     width: 100%;
   }
 }
-@media (max-width: 480px) {
+@media (width <= 480px) {
   h1 {
     font-size: 1.5rem;
   }

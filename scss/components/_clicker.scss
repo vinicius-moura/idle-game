@@ -23,6 +23,7 @@ h1 {
   .rps-display-container {
     font-size: 1rem;
     color: #7f8c8d;
+    
     p {
       display: inline;
     }
@@ -65,5 +66,5 @@ h1 {
 .ship-svg {
   width: 150px;
   height: auto;
-  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(5px 5px 5px rgba(0 0 0 / 20%));
 }

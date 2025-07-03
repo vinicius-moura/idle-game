@@ -1,7 +1,6 @@
 @use "../base/variables" as *;
 
-@media (max-width: 768px) {
-
+@media (width <= 768px) {
   html,
   body {
     height: 100%;
@@ -83,7 +82,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   h1 {
     font-size: 1.5rem;
   }
