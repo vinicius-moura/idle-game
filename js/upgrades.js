@@ -1,6 +1,6 @@
 import { gameState } from './gameState.js';
 import { renderUpgrades } from './ui.js';
-import { recalculateStats, updateUI } from './ui.js';
+import { updateUI } from './ui.js';
 
 export const upgrades = [
     // Click Upgrades
@@ -45,4 +45,24 @@ export const buyUpgrade = (id) => {
         recalculateStats();
         updateUI();
     }
+};
+
+export const recalculateStats = () => {
+    let newClickPower = 1;
+    let newRPS = 0;
+
+    for (const upgrade of upgrades) {
+        const level = gameState.upgrades[upgrade.id]?.level || 0;
+
+        if (level > 0) {
+            if (upgrade.type === 'click') {
+                newClickPower += upgrade.effect * level;
+            } else if (upgrade.type === 'idle') {
+                newRPS += upgrade.effect * level;
+            }
+        }
+    }
+
+    gameState.clickPower = newClickPower * gameState.prestige.permanentBonus;
+    gameState.reputationPerSecond = newRPS * gameState.prestige.permanentBonus;
 };

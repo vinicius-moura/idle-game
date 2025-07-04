@@ -1,8 +1,8 @@
 // main.js
 
 import { gameState, init, saveGame } from './gameState.js';
-import { recalculateStats, renderUpgrades, updateUI, showFloatingText } from './ui.js';
-import { buyUpgrade } from './upgrades.js';
+import { renderUpgrades, updateUI, showFloatingText } from './ui.js';
+import { buyUpgrade, recalculateStats } from './upgrades.js';
 import { handlePrestige } from './prestige.js';
 
 const clickerBtn = document.getElementById('clicker-btn');

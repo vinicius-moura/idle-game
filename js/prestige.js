@@ -1,5 +1,6 @@
 import { gameState, PRESTIGE_COST_BASE, PRESTIGE_BONUS_PER_LEVEL, init, saveGame } from './gameState.js';
-import { recalculateStats, renderUpgrades, updateUI } from './ui.js';
+import { renderUpgrades, updateUI } from './ui.js';
+import { recalculateStats } from './upgrades.js';
 
 export const handlePrestige = () => {
     const prestigeCost = PRESTIGE_COST_BASE * Math.pow(10, gameState.prestige.level);

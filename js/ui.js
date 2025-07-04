@@ -11,26 +11,6 @@ const legendLevelDisplay = document.getElementById('legend-level');
 const legendBonusDisplay = document.getElementById('legend-bonus');
 const clickerArea = document.getElementById('clicker-area');
 
-export const recalculateStats = () => {
-    let newClickPower = 1;
-    let newRPS = 0;
-
-    for (const upgrade of upgrades) {
-        const level = gameState.upgrades[upgrade.id]?.level || 0;
-
-        if (level > 0) {
-            if (upgrade.type === 'click') {
-                newClickPower += upgrade.effect * level;
-            } else if (upgrade.type === 'idle') {
-                newRPS += upgrade.effect * level;
-            }
-        }
-    }
-
-    gameState.clickPower = newClickPower * gameState.prestige.permanentBonus;
-    gameState.reputationPerSecond = newRPS * gameState.prestige.permanentBonus;
-};
-
 export const updateUI = () => {
     reputationDisplay.textContent = formatNumber(gameState.reputation);
     rpsDisplay.textContent = `${formatNumber(gameState.reputationPerSecond)}`;
