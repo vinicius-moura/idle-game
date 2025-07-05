@@ -73,16 +73,16 @@
     </div>
 
     <template id="upgrade-template">
-        <div class="upgrade" data-upgrade-id="">
-            <div class="upgrade-info">
-                <h3></h3>
-                <p></p>
+        <div class="upgrade" id="upgrade-root" data-upgrade-id="">
+            <div class="upgrade-info" id="upgrade-info">
+                <h3 class="upgrade-name" id="upgrade-name"></h3>
+                <p class="upgrade-description" id="upgrade-description"></p>
             </div>
-            <div class="upgrade-stats">
-                <div></div>
-                <div class="upgrade-cost"></div>
+            <div class="upgrade-stats" id="upgrade-stats">
+                <div class="upgrade-level" id="upgrade-level"></div>
+                <div class="upgrade-cost" id="upgrade-cost"></div>
             </div>
-            <button class="buy-btn" data-upgrade-id="" data-cost="">Buy</button>
+            <button class="buy-btn" id="upgrade-buy-btn" data-upgrade-id="" data-cost="">Buy</button>
         </div>
     </template>
 

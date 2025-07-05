@@ -60,17 +60,17 @@ export const renderUpgrades = () => {
         const clone = template.content.cloneNode(true);
 
         // Select the root upgrade div inside the clone
-        const el = clone.querySelector('.upgrade');
+        const el = clone.getElementById('upgrade-root');
         
         el.dataset.upgradeId = upgrade.id;
         
         // Fill in upgrade
-        el.querySelector('h3').textContent = upgrade.name;
-        el.querySelector('p').textContent = upgrade.description;
-        el.querySelector('.upgrade-stats > div:first-child').textContent = `Level: ${state.level}`;
-        el.querySelector('.upgrade-cost').textContent = `Cost: ${formatNumber(state.cost)}`;
+        clone.getElementById('upgrade-name').textContent = upgrade.name;
+        clone.getElementById('upgrade-description').textContent = upgrade.description;
+        clone.getElementById('upgrade-level').textContent = `Level: ${state.level}`;
+        clone.getElementById('upgrade-cost').textContent = `Cost: ${formatNumber(state.cost)}`;
         
-        const button = el.querySelector('.buy-btn');
+        const button = clone.getElementById('upgrade-buy-btn');
         
         button.dataset.upgradeId = upgrade.id;
         button.dataset.cost = state.cost;
@@ -83,14 +83,13 @@ export const renderUpgrades = () => {
 export const updateUpgradeElement = (id) => {
     const upgrade = upgrades.find(u => u.id === id);
     const state = gameState.upgrades[id] || { level: 0, cost: upgrade.baseCost };
-    const el = upgradesContainer.querySelector(`.upgrade[data-upgrade-id="${id}"]`);
+    const el = upgradesContainer.querySelector('[data-upgrade-id="' + id + '"]');
 
-    const levelDiv = el.querySelector('.upgrade-stats > div:first-child');
-    const costDiv = el.querySelector('.upgrade-cost');
-    const button = el.querySelector('.buy-btn');
-    
-    levelDiv.textContent = `Level: ${state.level}`;
-    costDiv.textContent = `Cost: ${formatNumber(state.cost)}`;
+    el.querySelector('#upgrade-level').textContent = `Level: ${state.level}`;
+    el.querySelector('#upgrade-cost').textContent = `Cost: ${formatNumber(state.cost)}`;
+
+    const button = el.querySelector('#upgrade-buy-btn');
+
     button.dataset.cost = state.cost;
 
     // Add flash effect
