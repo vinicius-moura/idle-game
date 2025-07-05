@@ -49,12 +49,12 @@ export const renderUpgrades = () => {
     for (const upgrade of upgrades) {
         const state = gameState.upgrades[upgrade.id] || { level: 0, cost: upgrade.baseCost };
 
-        if (upgrade.type === 'ship' && state.level > 0) {continue;}
+        if (upgrade.type === 'ship' && state.level > 0) { continue; }
 
         const el = document.createElement('div');
 
         el.className = 'upgrade';
-        el.dataset.cost = state.cost;
+        el.dataset.upgradeId = upgrade.id;
 
         el.innerHTML = `
             <div class="upgrade-info">
@@ -69,6 +69,26 @@ export const renderUpgrades = () => {
         `;
         upgradesContainer.appendChild(el);
     }
+};
+
+export const updateUpgradeElement = (id) => {
+    const upgrade = upgrades.find(u => u.id === id);
+    const state = gameState.upgrades[id] || { level: 0, cost: upgrade.baseCost };
+    const el = upgradesContainer.querySelector(`.upgrade[data-upgrade-id="${id}"]`);
+
+    const levelDiv = el.querySelector('.upgrade-stats > div:first-child');
+    const costDiv = el.querySelector('.upgrade-cost');
+    const button = el.querySelector('.buy-btn');
+    
+    levelDiv.textContent = `Level: ${state.level}`;
+    costDiv.textContent = `Cost: ${formatNumber(state.cost)}`;
+    button.dataset.cost = state.cost;
+
+    // Add flash effect
+    el.classList.add('flash');
+    setTimeout(() => {
+        el.classList.remove('flash');
+    }, 500);
 };
 
 const shipSVGs = {
@@ -127,9 +147,9 @@ function formatDuration(seconds) {
 
     const parts = [];
 
-    if (days > 0) {parts.push(`${days} day${days !== 1 ? 's' : ''}`);}
-    if (hours > 0) {parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`);}
-    if (minutes > 0) {parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`);}
+    if (days > 0) { parts.push(`${days} day${days !== 1 ? 's' : ''}`); }
+    if (hours > 0) { parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`); }
+    if (minutes > 0) { parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`); }
 
     if (parts.length === 1) {
         return parts[0];

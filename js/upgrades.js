@@ -1,5 +1,5 @@
 import { gameState } from './gameState.js';
-import { renderUpgrades } from './ui.js';
+import { updateUpgradeElement } from './ui.js';
 import { updateUI } from './ui.js';
 
 export const upgrades = [
@@ -41,7 +41,7 @@ export const buyUpgrade = (id) => {
         }
 
         gameState.upgrades[id] = state;
-        renderUpgrades();
+        updateUpgradeElement(id);
         recalculateStats();
         updateUI();
     }
