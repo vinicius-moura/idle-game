@@ -46,28 +46,37 @@ export const updateUI = () => {
 
 export const renderUpgrades = () => {
     upgradesContainer.innerHTML = '';
+    const template = document.getElementById('upgrade-template');
+
     for (const upgrade of upgrades) {
         const state = gameState.upgrades[upgrade.id] || { level: 0, cost: upgrade.baseCost };
 
-        if (upgrade.type === 'ship' && state.level > 0) { continue; }
+        // Skip 'ship' upgrades already bought
+        if (upgrade.type === 'ship' && state.level > 0) {
+            continue;
+        }
 
-        const el = document.createElement('div');
+        // Clone the template content
+        const clone = template.content.cloneNode(true);
 
-        el.className = 'upgrade';
+        // Select the root upgrade div inside the clone
+        const el = clone.querySelector('.upgrade');
+        
         el.dataset.upgradeId = upgrade.id;
+        
+        // Fill in upgrade
+        el.querySelector('h3').textContent = upgrade.name;
+        el.querySelector('p').textContent = upgrade.description;
+        el.querySelector('.upgrade-stats > div:first-child').textContent = `Level: ${state.level}`;
+        el.querySelector('.upgrade-cost').textContent = `Cost: ${formatNumber(state.cost)}`;
+        
+        const button = el.querySelector('.buy-btn');
+        
+        button.dataset.upgradeId = upgrade.id;
+        button.dataset.cost = state.cost;
 
-        el.innerHTML = `
-            <div class="upgrade-info">
-                <h3>${upgrade.name}</h3>
-                <p>${upgrade.description}</p>
-            </div>
-            <div class="upgrade-stats">
-                <div>Level: ${state.level}</div>
-                <div class="upgrade-cost">Cost: ${formatNumber(state.cost)}</div>
-            </div>
-            <button class="buy-btn" data-upgrade-id="${upgrade.id}" data-cost="${state.cost}">Buy</button>
-        `;
-        upgradesContainer.appendChild(el);
+        // Append to container
+        upgradesContainer.appendChild(clone);
     }
 };
 

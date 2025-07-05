@@ -34,7 +34,9 @@
             <div id="stats-container" class="stats-container">
                 <div id="reputation-display" class="reputation-display"
                     data-tooltip="This is your Pirate Reputation. More is... more.">0</div>
-                <div class="rps-display-container"><p id="rps-display">0</p> per second</div>
+                <div class="rps-display-container">
+                    <p id="rps-display">0</p> per second
+                </div>
             </div>
 
             <div id="clicker-area" class="clicker-area">
@@ -69,6 +71,20 @@
             </div>
         </div>
     </div>
+
+    <template id="upgrade-template">
+        <div class="upgrade" data-upgrade-id="">
+            <div class="upgrade-info">
+                <h3></h3>
+                <p></p>
+            </div>
+            <div class="upgrade-stats">
+                <div></div>
+                <div class="upgrade-cost"></div>
+            </div>
+            <button class="buy-btn" data-upgrade-id="" data-cost="">Buy</button>
+        </div>
+    </template>
 
 </body>
 
