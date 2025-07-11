@@ -15,21 +15,7 @@ export const updateUI = () => {
     reputationDisplay.textContent = formatNumber(gameState.reputation);
     rpsDisplay.textContent = `${formatNumber(gameState.reputationPerSecond)}`;
 
-    document.querySelectorAll('.buy-btn').forEach(btn => {
-        const cost = parseFloat(btn.dataset.cost);
-
-        btn.disabled = gameState.reputation < cost;
-    });
-
-    document.querySelectorAll('.upgrade').forEach(el => {
-        const cost = parseFloat(el.dataset.cost);
-
-        if (gameState.reputation < cost) {
-            el.classList.add('disabled');
-        } else {
-            el.classList.remove('disabled');
-        }
-    });
+    updateUIAccess();
 
     const prestigeCost = PRESTIGE_COST_BASE * Math.pow(10, gameState.prestige.level);
 
@@ -61,23 +47,26 @@ export const renderUpgrades = () => {
 
         // Select the root upgrade div inside the clone
         const el = clone.getElementById('upgrade-root');
-        
+
         el.dataset.upgradeId = upgrade.id;
-        
+
         // Fill in upgrade
         clone.getElementById('upgrade-name').textContent = upgrade.name;
         clone.getElementById('upgrade-description').textContent = upgrade.description;
         clone.getElementById('upgrade-level').textContent = `Level: ${state.level}`;
         clone.getElementById('upgrade-cost').textContent = `Cost: ${formatNumber(state.cost)}`;
-        
+
         const button = clone.getElementById('upgrade-buy-btn');
-        
+
         button.dataset.upgradeId = upgrade.id;
         button.dataset.cost = state.cost;
 
         // Append to container
         upgradesContainer.appendChild(clone);
     }
+
+    // prevents the upgrade from flashing as available when the page loads
+    updateUIAccess();
 };
 
 export const updateUpgradeElement = (id) => {
@@ -143,4 +132,22 @@ export const showOfflineModal = (secondsPassed, reputationGained) => {
     closeBtn.addEventListener('click', closeModal);
     okBtn.addEventListener('click', closeModal);
 };
+
+function updateUIAccess() {
+    document.querySelectorAll('.upgrade').forEach(el => {
+        const btn = el.querySelector('#upgrade-buy-btn');
+        const cost = parseFloat(btn.dataset.cost);
+
+        // disable/enable button
+        btn.disabled = gameState.reputation < cost;
+
+        // disable/enable upgrade content
+        if (gameState.reputation < cost) {
+            el.classList.add('disabled');
+        } else {
+            el.classList.remove('disabled');
+        }
+
+    });
+}
 
