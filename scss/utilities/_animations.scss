@@ -49,5 +49,7 @@
     }
   }
 
-  animation: pulse $duration infinite;
+  & {
+    animation: pulse $duration infinite;
+  }
 }

@@ -102,15 +102,15 @@ button {
   transition: background-color 0.2s, transform 0.1s;
   font-family: "Fjalla One", sans-serif;
 }
+button:hover {
+  background-color: rgb(99.75, 22.6944444444, 14.25);
+}
 button:disabled {
   background-color: #bdc3c7;
   cursor: not-allowed;
 }
-button:not(:disabled):hover {
-  background-color: rgb(99.75, 22.6944444444, 14.25);
-}
-button.buy-btn:not(:disabled):hover {
-  animation: pulse 0.75s infinite;
+
+.buy-btn:not(:disabled):hover {
   background-color: #bd2b1b;
 }
 @keyframes pulse {
@@ -123,6 +123,9 @@ button.buy-btn:not(:disabled):hover {
   100% {
     transform: scale(1);
   }
+}
+.buy-btn:not(:disabled):hover {
+  animation: pulse 0.75s infinite;
 }
 
 h1 {
@@ -164,6 +167,9 @@ h1 {
   padding: 0;
   transition: transform 0.1s ease-out;
   animation: bob 3s ease-in-out infinite;
+}
+.clicker-area .clicker-btn:hover {
+  background-color: none;
 }
 .clicker-area .clicker-btn:active {
   transform: scale(0.95);
