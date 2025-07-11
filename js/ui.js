@@ -1,6 +1,6 @@
 import { gameState, PRESTIGE_COST_BASE } from './gameState.js';
 import { upgrades } from './upgrades.js';
-import { formatNumber } from './utils.js';
+import { formatNumber, formatDuration } from './utils.js';
 
 const reputationDisplay = document.getElementById('reputation-display');
 const rpsDisplay = document.getElementById('rps-display');
@@ -144,30 +144,3 @@ export const showOfflineModal = (secondsPassed, reputationGained) => {
     okBtn.addEventListener('click', closeModal);
 };
 
-function formatDuration(seconds) {
-    const days = Math.floor(seconds / (24 * 3600));
-
-    seconds %= 24 * 3600;
-    const hours = Math.floor(seconds / 3600);
-
-    seconds %= 3600;
-    const minutes = Math.floor(seconds / 60);
-
-    const parts = [];
-
-    if (days > 0) { parts.push(`${days} day${days !== 1 ? 's' : ''}`); }
-    if (hours > 0) { parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`); }
-    if (minutes > 0) { parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`); }
-
-    if (parts.length === 1) {
-        return parts[0];
-    }
-
-    if (parts.length === 2) {
-        return parts.join(' and ');
-    }
-
-    const last = parts.pop();
-
-    return parts.join(', ') + ' and ' + last;
-}
