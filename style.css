@@ -52,6 +52,46 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+@keyframes bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes float-up {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes flash {
+  0% {
+    background-color: #bd2b1b;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+.upgrade.flash {
+  animation: flash 0.5s ease;
+}
+
 button {
   background-color: #bd2b1b;
   color: #fff;
@@ -62,12 +102,27 @@ button {
   transition: background-color 0.2s, transform 0.1s;
   font-family: "Fjalla One", sans-serif;
 }
-button:hover {
-  background-color: rgb(99.75, 22.6944444444, 14.25);
-}
 button:disabled {
   background-color: #bdc3c7;
   cursor: not-allowed;
+}
+button:not(:disabled):hover {
+  background-color: rgb(99.75, 22.6944444444, 14.25);
+}
+button.buy-btn:not(:disabled):hover {
+  animation: pulse 0.75s infinite;
+  background-color: #bd2b1b;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 h1 {
@@ -241,46 +296,6 @@ h1 {
   font-size: 0.8rem;
   white-space: nowrap;
   z-index: 10;
-}
-
-@keyframes bob {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-@keyframes float-up {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-50px);
-    opacity: 0;
-  }
-}
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes flash {
-  0% {
-    background-color: #bd2b1b;
-  }
-  100% {
-    background-color: transparent;
-  }
-}
-.upgrade.flash {
-  animation: flash 0.5s ease;
 }
 
 @media (width <= 768px) {
