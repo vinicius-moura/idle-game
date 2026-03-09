@@ -4,6 +4,13 @@ import { GameService } from './services/game.service';
 import { FormatNumberPipe } from './pipes/format-number-pipe';
 import { UPGRADES } from './data/upgrades.data';
 
+// Interface para controlar os textos que sobem na tela ao clicar
+interface FloatingText {
+  id: number;
+  x: number;
+  text: string;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,16 +19,20 @@ import { UPGRADES } from './data/upgrades.data';
   styleUrl: './app.scss'
 })
 export class AppComponent {
-  // Injetamos o serviço que criamos antes
+  // Injetamos o serviço que controla a lógica do jogo
   public gameService = inject(GameService);
   
-  // Tornamos a lista de upgrades disponível para o HTML
+  // Lista de dados estáticos dos upgrades
   public upgradesData = UPGRADES;
 
-  // Atalho para o estado (Signal)
+  // Atalho reativo para o estado do jogo (Signal)
   state = this.gameService.state;
 
-  // Mapeamento das imagens dos barcos (substituindo o shipSVGs do ui.js)
+  // Gerenciamento de textos flutuantes
+  public floatingTexts: FloatingText[] = [];
+  private nextFloatId = 0;
+
+  // Mapeamento das imagens dos barcos (caminhos para a pasta public)
   shipImages: { [key: string]: string } = {
     paper_boat: 'ships/ship_1.png',
     bathtub_barque: 'ships/ship_2.png',
@@ -30,22 +41,49 @@ export class AppComponent {
   };
 
   onBtnClick() {
+    const power = this.state().clickPower;
     this.gameService.click();
-    // A lógica de "floating text" (showFloatingText) 
-    // será implementada em um passo futuro para manter este simples.
+    this.showFloatingText(power);
+  }
+
+  showFloatingText(amount: number) {
+    const id = this.nextFloatId++;
+    
+    // Formata o texto: se for inteiro mostra +1, se for decimal mostra +1.5
+    const formattedText = amount >= 1 ? amount.toFixed(0) : amount.toFixed(1);
+
+    const newText: FloatingText = {
+      id,
+      x: Math.random() * 40 + 30, // Posição horizontal aleatória (30% a 70%)
+      text: `+${formattedText}`
+    };
+
+    this.floatingTexts.push(newText);
+
+    // Remove o texto da tela após 1 segundo (tempo da animação CSS)
+    setTimeout(() => {
+      this.floatingTexts = this.floatingTexts.filter(t => t.id !== id);
+    }, 1000);
   }
 
   buy(id: string) {
     this.gameService.buyUpgrade(id);
   }
 
-  // Helper para verificar se o jogador tem dinheiro para o upgrade
+  // Verifica se o jogador tem reputação suficiente para comprar
   canAfford(cost: number): boolean {
     return this.state().reputation >= cost;
   }
 
-  // Helper para pegar o estado atual de um upgrade (nível e custo)
+  // Busca o nível e custo atual de um upgrade específico no estado salvo
   getUpgradeState(id: string) {
-    return this.state().upgrades[id] || { level: 0, cost: UPGRADES.find(u => u.id === id)?.baseCost || 0 };
+    const upgradeRecord = this.state().upgrades[id];
+    if (upgradeRecord) {
+      return upgradeRecord;
+    }
+    
+    // Se o upgrade nunca foi comprado, busca o custo base da lista de dados
+    const base = this.upgradesData.find(u => u.id === id);
+    return { level: 0, cost: base?.baseCost || 0 };
   }
 }
