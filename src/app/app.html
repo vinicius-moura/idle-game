@@ -39,29 +39,6 @@
     <!-- COLUNA DIREITA: UPGRADES -->
     <div class="column right-column">
         <h2>The Grand Scheme (aka The Shop)</h2>
-        <div class="upgrades-container">
-            @for (upgrade of upgradesData; track upgrade.id) {
-                @let upState = getUpgradeState(upgrade.id);
-                
-                <!-- Omitir barcos já comprados conforme seu ui.js -->
-                @if (!(upgrade.type === 'ship' && upState.level > 0)) {
-                    <div class="upgrade" [class.disabled]="!canAfford(upState.cost)">
-                        <div class="upgrade-info">
-                            <h3 class="upgrade-name">{{ upgrade.name }}</h3>
-                            <p class="upgrade-description">{{ upgrade.description }}</p>
-                        </div>
-                        <div class="upgrade-stats">
-                            <div class="upgrade-level">Level: {{ upState.level }}</div>
-                            <div class="upgrade-cost">Cost: {{ upState.cost | formatNumber }}</div>
-                        </div>
-                        <button class="buy-btn" 
-                                [disabled]="!canAfford(upState.cost)"
-                                (click)="buy(upgrade.id)">
-                            Buy
-                        </button>
-                    </div>
-                }
-            }
-        </div>
+        <app-upgrade-shop></app-upgrade-shop>
     </div>
 </div>

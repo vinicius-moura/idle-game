@@ -1,0 +1,15 @@
+<div class="upgrade" [class.disabled]="!canAfford">
+    <div class="upgrade-info">
+        <h3 class="upgrade-name">{{ upgrade.name }}</h3>
+        <p class="upgrade-description">{{ upgrade.description }}</p>
+    </div>
+    <div class="upgrade-stats">
+        <div class="upgrade-level">Level: {{ level }}</div>
+        <div class="upgrade-cost">Cost: {{ cost | formatNumber }}</div>
+    </div>
+    <button class="buy-btn" 
+            [disabled]="!canAfford"
+            (click)="onBuy()">
+        Buy
+    </button>
+</div>

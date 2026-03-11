@@ -1,12 +1,10 @@
 @use "sass:color";
 
-// Importando seus arquivos originais com o caminho correto
 @use "./scss/base/variables";
 @use "./scss/layout/body";
 @use "./scss/layout/columns";
 @use "./scss/components/buttons";
 @use "./scss/components/clicker";
-@use "./scss/components/upgrades";
 @use "./scss/components/prestige";
 @use "./scss/components/modal";
 @use "./scss/utilities/tooltips";
