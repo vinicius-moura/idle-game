@@ -1,0 +1,22 @@
+<img src="logo/logo.png" class="logo-img" alt="Paper Boat Pirates">
+
+<div class="stats-container">
+    <div class="reputation-display">
+        {{ state().reputation | formatNumber }}
+    </div>
+    <div class="rps-display-container">
+        <p>{{ state().reputationPerSecond | formatNumber }}</p> per second
+    </div>
+</div>
+
+<div class="clicker-area">
+    <button class="clicker-btn" (click)="onBtnClick()">
+        <img [src]="shipImages[state().currentShip]" class="ship-img" alt="Current Ship">
+    </button>
+    
+    @for (float of floatingTexts; track float.id) {
+        <div class="floating-text" [style.left.%]="float.x">
+            {{ float.text }}
+        </div>
+    }
+</div>
