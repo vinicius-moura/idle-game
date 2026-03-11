@@ -1,0 +1,9 @@
+<div class="prestige-container">
+    <div class="prestige-info">
+        Legendary Level: <span>{{ state().prestige.level }}</span> 
+        (+<span>{{ (state().prestige.permanentBonus - 1) * 100 | number:'1.0-0' }}</span>% Bonus)
+    </div>
+    <button class="prestige-btn" [disabled]="true" (click)="prestige()">
+        Embrace Legendary Piracy
+    </button>
+</div>
