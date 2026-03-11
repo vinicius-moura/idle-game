@@ -11,3 +11,12 @@ body {
   margin: 0;
   touch-action: manipulation; // avoid zoom on mobile by double click
 }
+
+@media (width <= 768px) {
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+}
