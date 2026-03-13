@@ -42,12 +42,10 @@ describe('FormatNumberPipe', () => {
   });
 
   it('should format very large numbers using the last suffixes (Oc)', () => {
-    // 10^27 = 1 Octillion
     expect(pipe.transform(1e27)).toBe('1.00Oc');
   });
 
   it('should return exponential notation for numbers beyond the suffix list', () => {
-    // 10^33 é maior que Octillion (10^27) na nossa lista
     const veryLargeNumber = 1e33;
     expect(pipe.transform(veryLargeNumber)).toBe(veryLargeNumber.toExponential(2));
   });

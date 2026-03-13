@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { GameState, UpgradeState } from '../models/game.model';
-import { UPGRADES } from '../data/upgrades.data'; // Importação dos dados separados
+import { UPGRADES } from '../data/upgrades.data';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,7 @@ export class GameService {
   }
 
   buyUpgrade(id: string) {
-    const upgrade = UPGRADES.find(u => u.id === id); // Busca nos dados importados
+    const upgrade = UPGRADES.find(u => u.id === id);
     if (!upgrade) return;
 
     const currentUpgradeState = this.state().upgrades[id] || { level: 0, cost: upgrade.baseCost };
@@ -69,7 +69,7 @@ export class GameService {
     let newClickPower = 1;
     let newRPS = 0;
 
-    for (const upgrade of UPGRADES) { // Loop usando os dados importados
+    for (const upgrade of UPGRADES) {
       const level = this.state().upgrades[upgrade.id]?.level || 0;
       if (level > 0) {
         if (upgrade.type === 'click') newClickPower += (upgrade.effect || 0) * level;

@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GameService } from './services/game.service';
 import { UpgradeShop} from './components/upgrade-shop/upgrade-shop';
 import { StatsClicker } from './components/stats-clicker/stats-clicker';
 import { Prestige } from './components/prestige/prestige';
@@ -12,5 +11,5 @@ import { Prestige } from './components/prestige/prestige';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class AppComponent {
+export class App {
 }
