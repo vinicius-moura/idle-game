@@ -18,6 +18,8 @@ export class GameService {
     currentShip: 'paper_boat'
   });
 
+  offlineGains = signal<number | null>(null);
+
   constructor() {
     this.loadGame();
     
@@ -85,6 +87,10 @@ export class GameService {
     }));
   }
 
+  dismissOfflineGains() {
+    this.offlineGains.set(null);
+  }
+
   private saveGame() {
     localStorage.setItem('paperPiratesSave', JSON.stringify(this.state()));
     localStorage.setItem('paperPiratesLastSaveTime', Date.now().toString());
@@ -92,9 +98,26 @@ export class GameService {
 
   private loadGame() {
     const saved = localStorage.getItem('paperPiratesSave');
+    const lastSaveTime = localStorage.getItem('paperPiratesLastSaveTime');
+
     if (saved) {
       this.state.set(JSON.parse(saved));
       this.recalculateStats();
+    }
+
+    if (lastSaveTime) {
+      const secondsOffline = Math.min(
+        (Date.now() - parseInt(lastSaveTime)) / 1000,
+        8 * 60 * 60 // 8h cap
+      );
+
+      if (secondsOffline > 10) {
+        const gained = this.state().reputationPerSecond * secondsOffline;
+        if (gained > 0) {
+          this.state.update(s => ({ ...s, reputation: s.reputation + gained }));
+          this.offlineGains.set(gained);
+        }
+      }
     }
   }
 }

@@ -1,0 +1,6 @@
+<div class="modal" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="modal-close" (click)="onClose()">&times;</span>
+    <ng-content></ng-content>
+  </div>
+</div>

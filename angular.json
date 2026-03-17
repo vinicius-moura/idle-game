@@ -28,7 +28,7 @@
               "src/_redirects"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/styles.scss"
             ]
           },
           "configurations": {
@@ -82,7 +82,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/scss/styles.scss"
             ]
           }
         }
