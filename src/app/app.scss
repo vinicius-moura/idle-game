@@ -29,19 +29,13 @@
   &.right-column {
     flex: 2;
     min-width: 400px;
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 
-    h2 {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      margin: 0;
-      padding: 20px 0;
-      text-align: center;
-      font-size: 2rem;
-      font-family: $font-display;
-      background-color: $panel-bg;
-      box-shadow: 0 2px 5px rgba(0 0 0 / 10%);
+    app-upgrade-shop {
+      flex: 1;
+      min-height: 0;
     }
   }
 }
@@ -73,7 +67,7 @@
       overflow: hidden;
 
       app-prestige {
-        margin-top: auto; 
+        margin-top: auto;
       }
     }
 
@@ -81,8 +75,15 @@
       margin-top: $left-column-height;
       height: calc(100vh - $left-column-height);
       min-width: auto;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch; // iOS scroll
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      -webkit-overflow-scrolling: touch;
+
+      app-upgrade-shop {
+        flex: 1;
+        min-height: 0;
+      }
     }
   }
 }
@@ -90,14 +91,6 @@
 @media (width <= 480px) {
   h1 {
     font-size: 1.5rem;
-  }
-
-  .column {
-    &.right-column {
-      h2 {
-        font-size: 1.25rem;
-      }
-    }
   }
 
   h3 {
