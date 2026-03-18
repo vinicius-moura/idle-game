@@ -6,10 +6,47 @@ import Shepherd, { Tour } from 'shepherd.js';
 })
 export class TourService {
   private tour: Tour | null = null;
-  private readonly TOUR_KEY = 'paperPiratesShipTourSeen';
+  private readonly SHIP_TOUR_KEY = 'paperPiratesShipTourSeen';
+  private readonly CLICK_TOUR_KEY = 'paperPiratesClickTourSeen';
 
   hasSeenTour(): boolean {
-    return localStorage.getItem(this.TOUR_KEY) === 'true';
+    return localStorage.getItem(this.SHIP_TOUR_KEY) === 'true';
+  }
+
+  hasSeenClickTour(): boolean {
+    return localStorage.getItem(this.CLICK_TOUR_KEY) === 'true';
+  }
+
+  startClickTour(): void {
+    if (this.hasSeenClickTour()) return;
+
+    this.tour = new Shepherd.Tour({
+      useModalOverlay: true,
+      defaultStepOptions: {
+        cancelIcon: { enabled: false },
+        scrollTo: true
+      }
+    });
+
+    this.tour.addStep({
+      id: 'click-tutorial',
+      attachTo: { element: '#clicker-btn', on: 'right' },
+      text: `
+        <h3>🏴‍☠️ Welcome, Captain!</h3>
+        <p>Click your ship to earn Reputation and build your pirate legend!</p>
+      `,
+      buttons: [
+        {
+          text: "Let's go! ⚓",
+          action: () => {
+            localStorage.setItem(this.CLICK_TOUR_KEY, 'true');
+            this.tour?.complete();
+          }
+        }
+      ]
+    });
+
+    this.tour.start();
   }
 
   startShipTour(): void {
@@ -35,7 +72,7 @@ export class TourService {
         {
           text: 'Set Sail! 🏴‍☠️',
           action: () => {
-            localStorage.setItem(this.TOUR_KEY, 'true');
+            localStorage.setItem(this.SHIP_TOUR_KEY, 'true');
             this.tour?.complete();
           }
         }

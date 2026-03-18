@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
 import { StatsClicker } from './stats-clicker';
 import { GameService } from '../../services/game.service';
+import { TourService } from '../../services/tour.service';
 import { FormatNumberPipe } from '../../pipes/format-number-pipe';
 import { signal } from '@angular/core';
 
@@ -8,6 +9,7 @@ describe('StatsClicker', () => {
   let component: StatsClicker;
   let fixture: ComponentFixture<StatsClicker>;
   let mockGameService: any;
+  let mockTourService: any;
 
   beforeEach(async () => {
     mockGameService = {
@@ -22,10 +24,16 @@ describe('StatsClicker', () => {
       click: jasmine.createSpy('click')
     };
 
+    mockTourService = {
+      startClickTour: jasmine.createSpy('startClickTour'),
+      hasSeenClickTour: jasmine.createSpy('hasSeenClickTour').and.returnValue(true)
+    };
+
     await TestBed.configureTestingModule({
       imports: [StatsClicker, FormatNumberPipe],
       providers: [
-        { provide: GameService, useValue: mockGameService }
+        { provide: GameService, useValue: mockGameService },
+        { provide: TourService, useValue: mockTourService }
       ]
     }).compileComponents();
 
@@ -37,6 +45,14 @@ describe('StatsClicker', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call startClickTour on init', fakeAsync(() => {
+    const newFixture = TestBed.createComponent(StatsClicker);
+    newFixture.detectChanges();
+    tick(300);
+    expect(mockTourService.startClickTour).toHaveBeenCalled();
+    discardPeriodicTasks();
+  }));
 
   it('should call gameService.click when onBtnClick is executed', () => {
     component.onBtnClick();
