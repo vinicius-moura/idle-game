@@ -85,7 +85,7 @@ describe('GameService', () => {
       service.state.update(s => ({ ...s, reputation: shipUpgrade.baseCost }));
       service.buyUpgrade(shipUpgrade.id);
       const upState = service.state().upgrades[shipUpgrade.id];
-      expect(service.state().currentShip).toBe(shipUpgrade.targetShip!);
+      expect(service.state().currentShip).toBe('toy_boat');
       expect(upState.cost).toBe(Infinity);
     }
   });

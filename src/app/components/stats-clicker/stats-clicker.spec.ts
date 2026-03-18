@@ -66,7 +66,7 @@ describe('StatsClicker', () => {
 
   it('should use correct ship image mapping', () => {
     expect(component.shipImages['paper_boat']).toBe('ships/ship_1.png');
-    expect(component.shipImages['cosmic_clipper']).toBe('ships/ship_4.png');
+    expect(component.shipImages['heart_of_gold']).toBe('ships/ship_12.png');
   });
 
   it('should format floating text decimals correctly for amounts less than 1', () => {

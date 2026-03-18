@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { GameState, UpgradeState } from '../models/game.model';
+import { GameState, ShipId } from '../models/game.model';
 import { UPGRADES } from '../data/upgrades.data';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class GameService {
     clickPower: 1,
     prestige: { level: 0, permanentBonus: 1 },
     upgrades: {},
-    currentShip: 'paper_boat'
+    currentShip: 'paper_boat' as ShipId
   });
 
   offlineGains = signal<number | null>(null);
@@ -51,15 +51,19 @@ export class GameService {
 
         if (upgrade.type === 'ship') {
           newCost = Infinity;
-          s.currentShip = upgrade.targetShip || s.currentShip;
-        } else {
-          newCost = Math.ceil(upgrade.baseCost * Math.pow(1.15, newLevel));
+          return {
+            ...s,
+            reputation: newReputation,
+            currentShip: (upgrade.targetShip || s.currentShip) as ShipId,
+            upgrades: { ...s.upgrades, [id]: { level: newLevel, cost: newCost } }
+          };
         }
 
-        return { 
-          ...s, 
-          reputation: newReputation, 
-          upgrades: { ...s.upgrades, [id]: { level: newLevel, cost: newCost } } 
+        newCost = Math.ceil(upgrade.baseCost * Math.pow(1.15, newLevel));
+        return {
+          ...s,
+          reputation: newReputation,
+          upgrades: { ...s.upgrades, [id]: { level: newLevel, cost: newCost } }
         };
       });
 

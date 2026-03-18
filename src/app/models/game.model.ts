@@ -4,15 +4,29 @@ export interface Upgrade {
   description: string;
   type: 'click' | 'idle' | 'ship';
   baseCost: number;
-  effect?: number;       // Valor fixo (ex: +1 clique, +10 RPS)
-  multiplier?: number;   // NOVO: Para efeitos percentuais (ex: 1.2 para +20%)
-  targetShip?: string;   // Para troca visual de barco
+  effect?: number;
+  multiplier?: number;
+  targetShip?: string;
 }
 
 export interface UpgradeState {
   level: number;
   cost: number;
 }
+
+export type ShipId =
+  | 'paper_boat'
+  | 'toy_boat'
+  | 'huckle_raft'
+  | 'old_man_skiff'
+  | 'wind_waker'
+  | 'black_pearl_cutter'
+  | 'going_merry'
+  | 'thousand_galleon'
+  | 'leviathan_frigate'
+  | 'dread_nautilus'
+  | 'flying_dutchman'
+  | 'heart_of_gold';
 
 export interface GameState {
   reputation: number;
@@ -23,5 +37,5 @@ export interface GameState {
     permanentBonus: number;
   };
   upgrades: { [id: string]: UpgradeState };
-  currentShip: string;
+  currentShip: ShipId;
 }
