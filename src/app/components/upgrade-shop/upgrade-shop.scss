@@ -1,0 +1,46 @@
+@use '../../../scss/base/variables' as *;
+
+.upgrades-container {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.shop-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.shop-tabs {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.shop-tab {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: bold;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &.ship {
+    background-color: #001e8b;
+  }
+
+  &.active {
+    opacity: 1;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &.solo {
+    cursor: default;
+    pointer-events: none;
+    opacity: 1;
+  }
+}

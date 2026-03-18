@@ -1,16 +1,51 @@
-<div class="upgrades-container">
-    @for (upgrade of upgradesData; track upgrade.id) {
-        @let upState = getUpgradeState(upgrade.id);
-        
-        <!-- Filtro: Omitir barcos já comprados -->
-        @if (!(upgrade.type === 'ship' && upState.level > 0)) {
-            <app-upgrade-item 
-                [upgrade]="upgrade"
-                [level]="upState.level"
-                [cost]="upState.cost"
-                [canAfford]="canAfford(upState.cost)"
-                (buy)="buy($event)">
-            </app-upgrade-item>
-        }
+<div class="shop-wrapper">
+  <div class="shop-tabs">
+    <button
+      class="shop-tab upgrade"
+      [class.active]="activeTab() === 'upgrades'"
+      [class.solo]="!shipsUnlocked"
+      (click)="setTab('upgrades')">
+      Upgrades
+    </button>
+
+    @if (shipsUnlocked) {
+      <button
+        id="ship-tab"
+        class="shop-tab ship"
+        [class.active]="activeTab() === 'ship'"
+        (click)="setTab('ship')">
+        ⚓ Ships
+      </button>
     }
+  </div>
+
+  <div class="upgrades-container">
+    @if (activeTab() === 'upgrades') {
+      @for (upgrade of clickIdleUpgrades; track upgrade.id) {
+        @let upState = getUpgradeState(upgrade.id);
+        <app-upgrade-item
+          [upgrade]="upgrade"
+          [level]="upState.level"
+          [cost]="upState.cost"
+          [canAfford]="canAfford(upState.cost)"
+          (buy)="buy($event)">
+        </app-upgrade-item>
+      }
+    }
+
+    @if (activeTab() === 'ship') {
+      @for (upgrade of shipUpgrades; track upgrade.id) {
+        @let upState = getUpgradeState(upgrade.id);
+        @if (upState.level === 0) {
+          <app-upgrade-item
+            [upgrade]="upgrade"
+            [level]="upState.level"
+            [cost]="upState.cost"
+            [canAfford]="canAfford(upState.cost) && isShipAvailable(upgrade.id)"
+            (buy)="buy($event)">
+          </app-upgrade-item>
+        }
+      }
+    }
+  </div>
 </div>
