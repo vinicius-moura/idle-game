@@ -27,7 +27,7 @@
   transition: opacity 0.2s;
 
   &.ship {
-    background-color: #001e8b;
+    background-color: $upgrade-ships-color;
   }
 
   &.active {

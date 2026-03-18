@@ -10,6 +10,30 @@
   border-left: 5px solid $accent-color;
   transition: background-color 0.2s;
 
+  &.type-click {
+    border-left-color: $accent-color;;
+
+    .buy-btn {
+      background-color: $accent-color;;
+    }
+  }
+
+  &.type-idle {
+    border-left-color: $accent-color;;
+
+    .buy-btn {
+      background-color: $accent-color;;
+    }
+  }
+
+  &.type-ship {
+    border-left-color: $upgrade-ships-color;
+
+    .buy-btn {
+      background-color: $upgrade-ships-color;
+    }
+  }
+
   &.disabled {
     border-left-color: $disabled-color;
     opacity: 0.7;
@@ -23,7 +47,8 @@
     }
 
     p { 
-      font-size: 12px; margin: 5px 0; 
+      font-size: 12px;
+      margin: 5px 0; 
     }
   }
 

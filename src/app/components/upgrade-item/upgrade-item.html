@@ -1,4 +1,6 @@
-<div class="upgrade" [class.disabled]="!canAfford">
+<div class="upgrade" 
+     [class.disabled]="!canAfford"
+     [ngClass]="'type-' + upgrade.type">
     <div class="upgrade-info">
         <h3 class="upgrade-name">{{ upgrade.name }}</h3>
         <p class="upgrade-description">{{ upgrade.description }}</p>
