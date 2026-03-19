@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
-import { GameState, ShipId } from '../models/game.model';
+import { GameState, ShipId, ShipSlot, SlotType } from '../models/game.model';
 import { UPGRADES } from '../data/upgrades.data';
+import { CREW_MEMBERS } from '../data/crew.data';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +10,39 @@ export class GameService {
   private readonly PRESTIGE_COST_BASE = 1e9;
   private readonly PRESTIGE_BONUS_PER_LEVEL = 0.05;
 
+  private readonly SHIP_SLOTS: Record<ShipId, SlotType[]> = {
+    paper_boat:        [],
+    toy_boat:          ['captain'],
+    huckle_raft:       ['captain', 'combatant'],
+    old_man_skiff:     ['captain', 'combatant', 'navigator'],
+    wind_waker:        ['captain', 'combatant', 'navigator', 'sniper'],
+    black_pearl_cutter:['captain', 'combatant', 'navigator', 'sniper', 'cook'],
+    going_merry:       ['captain', 'combatant', 'navigator', 'sniper', 'cook', 'medic'],
+    thousand_galleon:  ['captain', 'combatant', 'navigator', 'sniper', 'cook', 'medic', 'archaeologist'],
+    leviathan_frigate: ['captain', 'combatant', 'navigator', 'sniper', 'cook', 'medic', 'archaeologist', 'carpenter'],
+    dread_nautilus:    ['captain', 'combatant', 'navigator', 'sniper', 'cook', 'medic', 'archaeologist', 'carpenter', 'musician'],
+    flying_dutchman:   ['captain', 'combatant', 'navigator', 'sniper', 'cook', 'medic', 'archaeologist', 'carpenter', 'musician', 'helmsman'],
+    heart_of_gold:     ['captain', 'combatant', 'navigator', 'sniper', 'cook', 'medic', 'archaeologist', 'carpenter', 'musician', 'helmsman'],
+  };
+
   state = signal<GameState>({
     reputation: 0,
     reputationPerSecond: 0,
     clickPower: 1,
     prestige: { level: 0, permanentBonus: 1 },
     upgrades: {},
-    currentShip: 'paper_boat' as ShipId
+    currentShip: 'paper_boat' as ShipId,
+    crew: {
+      unlocked: CREW_MEMBERS.filter(c => c.unlocked).map(c => c.id),
+      slots: []
+    }
   });
 
   offlineGains = signal<number | null>(null);
 
   constructor() {
     this.loadGame();
-    
+
     setInterval(() => {
       this.state.update(s => ({
         ...s,
@@ -51,11 +71,14 @@ export class GameService {
 
         if (upgrade.type === 'ship') {
           newCost = Infinity;
+          const newShip = (upgrade.targetShip || s.currentShip) as ShipId;
+          const newSlots = this.buildSlotsForShip(newShip, s.crew.slots);
           return {
             ...s,
             reputation: newReputation,
-            currentShip: (upgrade.targetShip || s.currentShip) as ShipId,
-            upgrades: { ...s.upgrades, [id]: { level: newLevel, cost: newCost } }
+            currentShip: newShip,
+            upgrades: { ...s.upgrades, [id]: { level: newLevel, cost: newCost } },
+            crew: { ...s.crew, slots: newSlots }
           };
         }
 
@@ -69,6 +92,32 @@ export class GameService {
 
       this.recalculateStats();
     }
+  }
+
+  assignCrew(crewMemberId: string, slotType: SlotType) {
+    this.state.update(s => {
+      const slots = s.crew.slots.map(slot => {
+        // Remove o tripulante de qualquer slot onde já esteja
+        if (slot.crewMemberId === crewMemberId) {
+          return { ...slot, crewMemberId: null };
+        }
+        // Coloca no slot correto
+        if (slot.slotType === slotType) {
+          return { ...slot, crewMemberId };
+        }
+        return slot;
+      });
+      return { ...s, crew: { ...s.crew, slots } };
+    });
+  }
+
+  removeCrew(slotType: SlotType) {
+    this.state.update(s => {
+      const slots = s.crew.slots.map(slot =>
+        slot.slotType === slotType ? { ...slot, crewMemberId: null } : slot
+      );
+      return { ...s, crew: { ...s.crew, slots } };
+    });
   }
 
   recalculateStats() {
@@ -95,6 +144,13 @@ export class GameService {
     this.offlineGains.set(null);
   }
 
+  private buildSlotsForShip(shipId: ShipId, currentSlots: ShipSlot[]): ShipSlot[] {
+    return this.SHIP_SLOTS[shipId].map(slotType => {
+      const existing = currentSlots.find(s => s.slotType === slotType);
+      return existing ?? { slotType, crewMemberId: null };
+    });
+  }
+
   private saveGame() {
     localStorage.setItem('paperPiratesSave', JSON.stringify(this.state()));
     localStorage.setItem('paperPiratesLastSaveTime', Date.now().toString());
@@ -112,7 +168,7 @@ export class GameService {
     if (lastSaveTime) {
       const secondsOffline = Math.min(
         (Date.now() - parseInt(lastSaveTime)) / 1000,
-        8 * 60 * 60 // 8h cap
+        8 * 60 * 60
       );
 
       if (secondsOffline > 10) {

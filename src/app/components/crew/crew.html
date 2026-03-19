@@ -1,0 +1,60 @@
+<div class="crew-container">
+  <div class="crew-slots">
+    <h3>Current Crew</h3>
+
+    @if (state().crew.slots.length === 0) {
+      <p class="crew-empty">Upgrade your ship to unlock crew slots.</p>
+    }
+
+    @for (slot of state().crew.slots; track slot.slotType) {
+      <div
+        class="crew-slot"
+        cdkDropList
+        [cdkDropListData]="getSlotData(slot.slotType)"
+        [id]="'slot-' + slot.slotType"
+        [cdkDropListConnectedTo]="['available-crew']"
+        (cdkDropListDropped)="onDropToSlot($event, slot.slotType)">
+
+        <div class="crew-slot__label">{{ slotLabel(slot.slotType) }}</div>
+
+        @let member = getCrewInSlot(slot.slotType);
+        @if (member) {
+          <div
+            class="crew-card crew-card--assigned"
+            cdkDrag
+            [cdkDragData]="member">
+            <span class="crew-card__name">{{ member.name }}</span>
+            <span class="crew-card__rarity rarity--{{ member.rarity }}">{{ member.rarity }}</span>
+          </div>
+        } @else {
+          <div class="crew-slot__empty">Empty</div>
+        }
+      </div>
+    }
+  </div>
+
+  <div
+    class="crew-available"
+    cdkDropList
+    id="available-crew"
+    [cdkDropListData]="availableCrew"
+    [cdkDropListConnectedTo]="slotIds"
+    (cdkDropListDropped)="onDropToAvailable($event)">
+    <h3>Available Crew</h3>
+
+    @if (availableCrew.length === 0) {
+      <p class="crew-empty">All crew members are assigned!</p>
+    }
+
+    @for (member of availableCrew; track member.id) {
+      <div
+        class="crew-card"
+        cdkDrag
+        [cdkDragData]="member">
+        <span class="crew-card__name">{{ member.name }}</span>
+        <span class="crew-card__rarity rarity--{{ member.rarity }}">{{ member.rarity }}</span>
+        <span class="crew-card__slot">{{ slotLabel(member.slotType) }}</span>
+      </div>
+    }
+  </div>
+</div>

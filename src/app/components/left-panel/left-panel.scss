@@ -1,0 +1,45 @@
+@use '../../../scss/base/variables' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  margin-top: auto;
+}
+
+.left-panel-tabs {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.left-tab {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &.active {
+    opacity: 1;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &.solo {
+    cursor: default;
+    pointer-events: none;
+    opacity: 1;
+  }
+}
+
+.left-panel-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
