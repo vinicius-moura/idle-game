@@ -15,7 +15,6 @@ import { SlotType, CrewMember } from '../../models/game.model';
 export class Crew {
   private gameService = inject(GameService);
   state = this.gameService.state;
-
   allCrew = CREW_MEMBERS;
 
   get unlockedCrew(): CrewMember[] {
@@ -33,37 +32,14 @@ export class Crew {
     return this.unlockedCrew.filter(c => !this.assignedIds.includes(c.id));
   }
 
+  isUnlocked(member: CrewMember): boolean {
+    return this.state().crew.unlocked.includes(member.id);
+  }
+
   getCrewInSlot(slotType: SlotType): CrewMember | null {
     const slot = this.state().crew.slots.find(s => s.slotType === slotType);
     if (!slot?.crewMemberId) return null;
     return this.allCrew.find(c => c.id === slot.crewMemberId) ?? null;
-  }
-
-  onDropToSlot(event: CdkDragDrop<CrewMember[]>, slotType: SlotType) {
-    const crew = event.item.data as CrewMember;
-    if (crew.slotType !== slotType) return; // só aceita o tipo certo
-    this.gameService.assignCrew(crew.id, slotType);
-  }
-
-  onDropToAvailable(event: CdkDragDrop<CrewMember[]>) {
-    const crew = event.item.data as CrewMember;
-    this.gameService.removeCrew(crew.slotType);
-  }
-
-  slotLabel(slotType: SlotType): string {
-    const labels: Record<SlotType, string> = {
-      captain: '⚓ Captain',
-      combatant: '🗡️ Combatant',
-      navigator: '🧭 Navigator',
-      sniper: '🎯 Sniper',
-      cook: '🍽️ Cook',
-      medic: '🩺 Medic',
-      archaeologist: '⚔️ Archaeologist',
-      carpenter: '🔧 Carpenter',
-      musician: '🎵 Musician',
-      helmsman: '🌊 Helmsman'
-    };
-    return labels[slotType];
   }
 
   getSlotData(slotType: SlotType): CrewMember[] {
@@ -73,5 +49,36 @@ export class Crew {
 
   get slotIds(): string[] {
     return this.state().crew.slots.map(s => `slot-${s.slotType}`);
+  }
+
+  onDropToSlot(event: CdkDragDrop<CrewMember[]>, slotType: SlotType) {
+    const crew = event.item.data as CrewMember;
+    if (crew.slotType !== slotType) return;
+    this.gameService.assignCrew(crew.id, slotType);
+  }
+
+  onDropToAvailable(event: CdkDragDrop<CrewMember[]>) {
+    const crew = event.item.data as CrewMember;
+    this.gameService.removeCrew(crew.slotType);
+  }
+
+slotLabel(slotType: SlotType): string {
+  const labels: Record<SlotType, string> = {
+    captain: 'Captain',
+    combatant: 'Combatant',
+    navigator: 'Navigator',
+    sniper: 'Sniper',
+    cook: 'Cook',
+    medic: 'Medic',
+    archaeologist: 'Archaeologist',
+    carpenter: 'Carpenter',
+    musician: 'Musician',
+    helmsman: 'Helmsman'
+  };
+  return labels[slotType];
+}
+
+  crewImage(member: CrewMember): string {
+    return `crew/${member.id}.png`;
   }
 }
