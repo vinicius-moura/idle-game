@@ -76,13 +76,21 @@ h1 {
 @media (width <= 768px) {
   .stats-container {
     padding: 5px;
+    width: 100%;
+
     .rps-display-container {
       font-size: 0.75rem;
     }
   }
 
   .clicker-area {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
     .clicker-btn {
+      width: fit-content;
+
       .ship-img {
         height: 25vh;
       }
