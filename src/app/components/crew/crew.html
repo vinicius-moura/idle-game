@@ -1,6 +1,8 @@
 @if (isOpen) {
   <app-modal (close)="close.emit()">
     <div class="crew-container">
+
+      <!-- Slots do navio -->
       <div class="crew-slots">
         <p class="crew-section-label">Ship Crew</p>
         @if (state().crew.slots.length === 0) {
@@ -36,9 +38,24 @@
               </div>
             </div>
           }
+
+          <!-- Slots bloqueados -->
+          @for (slotType of lockedSlots; track slotType) {
+            <div class="crew-slot-wrapper">
+              <span class="crew-slot__label crew-slot__label--locked">{{ slotLabel(slotType) }}</span>
+              <div class="crew-slot crew-slot--locked">
+                <div class="crew-icon__fallback crew-icon__fallback--locked">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zm-6 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm3.1-9H8.9V6a3.1 3.1 0 0 1 6.2 0v2z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          }
         </div>
       </div>
 
+      <!-- Tripulantes -->
       <div class="crew-available-section">
         <p class="crew-section-label">Available Crew</p>
         <div
@@ -48,18 +65,26 @@
           [cdkDropListData]="availableCrew"
           [cdkDropListConnectedTo]="slotIds"
           (cdkDropListDropped)="onDropToAvailable($event)">
+
           @for (member of allCrew; track member.id) {
             @let unlocked = isUnlocked(member);
             @let assigned = assignedIds.includes(member.id);
+
             <div
               class="crew-icon"
-              [class.crew-icon--locked]="!unlocked"
-              [class.crew-icon--assigned]="assigned"
-              [class]="unlocked ? 'rarity-border--' + member.rarity : ''"
+              [ngClass]="{
+                'crew-icon--locked': !unlocked,
+                'crew-icon--assigned': assigned,
+                'rarity-border--common': member.rarity === 'common',
+                'rarity-border--rare': member.rarity === 'rare',
+                'rarity-border--epic': member.rarity === 'epic',
+                'rarity-border--legendary': member.rarity === 'legendary'
+              }"
               cdkDrag
               [cdkDragData]="member"
               [cdkDragDisabled]="!unlocked || assigned"
               [title]="unlocked ? member.name : '???'">
+
               @if (unlocked) {
                 <img [src]="crewImage(member)" [alt]="member.name"
                     (error)="$any($event.target).style.display='none'">
@@ -67,8 +92,11 @@
                   {{ member.name[0] }}
                 </div>
               } @else {
-                <div class="crew-icon__fallback crew-icon__fallback--locked">🔒</div>
+                <div class="crew-icon__fallback" [class]="'rarity-bg--' + member.rarity">
+                  ?
+                </div>
               }
+
               <span class="crew-icon__tooltip">
                 {{ unlocked ? member.name : '???' }}
               </span>
@@ -76,6 +104,7 @@
           }
         </div>
       </div>
+
     </div>
   </app-modal>
 }

@@ -120,6 +120,15 @@ export class GameService {
     });
   }
 
+  get allSlotTypes(): SlotType[] {
+    return ['captain', 'combatant', 'navigator', 'sniper', 'cook', 'medic', 'archaeologist', 'carpenter', 'musician', 'helmsman'];
+  }
+
+  get lockedSlotTypes(): SlotType[] {
+    const activeSlots = this.state().crew.slots.map(s => s.slotType);
+    return this.allSlotTypes.filter(s => !activeSlots.includes(s));
+  }
+
   recalculateStats() {
     let newClickPower = 1;
     let newRPS = 0;

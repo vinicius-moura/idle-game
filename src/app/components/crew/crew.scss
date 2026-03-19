@@ -98,8 +98,12 @@
   &--locked {
     cursor: default;
     opacity: 0.5;
-    filter: grayscale(1);
-    border-color: #ccc !important;
+  }
+
+  &--slot-locked {
+    cursor: default;
+    opacity: 0.7;
+    border-color: #ccc;
   }
 
   &--assigned {
@@ -135,8 +139,13 @@
     z-index: 0;
 
     &--locked {
-      background: #555;
-      font-size: 22px;
+      background: #888;
+      color: #555;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 
@@ -173,16 +182,16 @@
 }
 
 // RARIDADE — bordas
-.rarity-border--common    { border-color: #888; }
-.rarity-border--rare      { border-color: #2980b9; }
-.rarity-border--epic      { border-color: #8e44ad; }
-.rarity-border--legendary { border-color: #e67e22; }
+.rarity-border--common    { border-color: $color-common; }
+.rarity-border--rare      { border-color: $color-rare; }
+.rarity-border--epic      { border-color: $color-epic; }
+.rarity-border--legendary { border-color: $color-legendary; }
 
 // RARIDADE — fallback bg
-.rarity-bg--common    { background: #888; }
-.rarity-bg--rare      { background: #2980b9; }
-.rarity-bg--epic      { background: #8e44ad; }
-.rarity-bg--legendary { background: #e67e22; }
+.rarity-bg--common    { background: $color-common; }
+.rarity-bg--rare      { background: $color-rare; }
+.rarity-bg--epic      { background: $color-epic; }
+.rarity-bg--legendary { background: $color-legendary; }
 
 .crew-empty {
   font-size: 13px;

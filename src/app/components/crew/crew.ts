@@ -55,6 +55,14 @@ export class Crew {
     return this.state().crew.slots.map(s => `slot-${s.slotType}`);
   }
 
+  get lockedSlots(): SlotType[] {
+    return this.gameService.lockedSlotTypes;
+  }
+
+  getCrewForSlotType(slotType: SlotType): CrewMember | null {
+    return this.allCrew.find(c => c.slotType === slotType) ?? null;
+  }
+
   onDropToSlot(event: CdkDragDrop<CrewMember[]>, slotType: SlotType) {
     const crew = event.item.data as CrewMember;
     if (crew.slotType !== slotType) return;
@@ -74,7 +82,7 @@ export class Crew {
       sniper: 'Sniper',
       cook: 'Cook',
       medic: 'Medic',
-      archaeologist: 'Archaeologist',
+      archaeologist: 'Historian',
       carpenter: 'Carpenter',
       musician: 'Musician',
       helmsman: 'Helmsman'

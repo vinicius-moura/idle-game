@@ -19,9 +19,16 @@
   font-size: 1.1rem;
   font-weight: bold;
   font-family: $font-display;
-  background-color: #092a4b;
   transition: opacity 0.2s;
   opacity: 1;
+
+  &.crew {
+    background-color: #092a4b;
+  }
+
+  &.prestige {
+    background-color: #7e7b7b;
+  }
 
   &:hover {
     opacity: 0.7;
