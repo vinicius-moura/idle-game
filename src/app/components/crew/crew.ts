@@ -1,21 +1,25 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { GameService } from '../../services/game.service';
 import { CREW_MEMBERS } from '../../data/crew.data';
 import { SlotType, CrewMember } from '../../models/game.model';
+import { Modal } from '../modal/modal';
 
 @Component({
   selector: 'app-crew',
   standalone: true,
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, DragDropModule, Modal],
   templateUrl: './crew.html',
   styleUrl: './crew.scss'
 })
+
 export class Crew {
   private gameService = inject(GameService);
   state = this.gameService.state;
   allCrew = CREW_MEMBERS;
+  @Input() isOpen = false;
+  @Output() close = new EventEmitter<void>();
 
   get unlockedCrew(): CrewMember[] {
     const unlockedIds = this.state().crew.unlocked;
@@ -62,21 +66,21 @@ export class Crew {
     this.gameService.removeCrew(crew.slotType);
   }
 
-slotLabel(slotType: SlotType): string {
-  const labels: Record<SlotType, string> = {
-    captain: 'Captain',
-    combatant: 'Combatant',
-    navigator: 'Navigator',
-    sniper: 'Sniper',
-    cook: 'Cook',
-    medic: 'Medic',
-    archaeologist: 'Archaeologist',
-    carpenter: 'Carpenter',
-    musician: 'Musician',
-    helmsman: 'Helmsman'
-  };
-  return labels[slotType];
-}
+  slotLabel(slotType: SlotType): string {
+    const labels: Record<SlotType, string> = {
+      captain: 'Captain',
+      combatant: 'Combatant',
+      navigator: 'Navigator',
+      sniper: 'Sniper',
+      cook: 'Cook',
+      medic: 'Medic',
+      archaeologist: 'Archaeologist',
+      carpenter: 'Carpenter',
+      musician: 'Musician',
+      helmsman: 'Helmsman'
+    };
+    return labels[slotType];
+  }
 
   crewImage(member: CrewMember): string {
     return `crew/${member.id}.png`;

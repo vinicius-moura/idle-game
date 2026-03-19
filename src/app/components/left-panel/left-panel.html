@@ -1,27 +1,13 @@
-<div class="left-panel-tabs">
+<div class="left-panel-buttons">
   @if (hasCrewSlots) {
-    <button
-      class="left-tab"
-      [class.active]="activeTab() === 'crew'"
-      [class.solo]="!hasCrewSlots"
-      (click)="setTab('crew')">
-      ⚓ Crew
+    <button class="left-panel-btn" (click)="crewOpen.set(true)">
+      Crew
     </button>
   }
-  <button
-    class="left-tab"
-    [class.active]="activeTab() === 'prestige'"
-    [class.solo]="!hasCrewSlots"
-    (click)="setTab('prestige')">
-    ✨ Prestige
+  <button class="left-panel-btn" (click)="prestigeOpen.set(true)">
+    Prestige
   </button>
 </div>
 
-<div class="left-panel-content">
-  @if (activeTab() === 'crew' && hasCrewSlots) {
-    <app-crew></app-crew>
-  }
-  @if (activeTab() === 'prestige') {
-    <app-prestige></app-prestige>
-  }
-</div>
+<app-crew [isOpen]="crewOpen()" (close)="crewOpen.set(false)"></app-crew>
+<app-prestige [isOpen]="prestigeOpen()" (close)="prestigeOpen.set(false)"></app-prestige>
