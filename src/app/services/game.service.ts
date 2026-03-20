@@ -9,6 +9,7 @@ import { CREW_MEMBERS } from '../data/crew.data';
 export class GameService {
   private readonly PRESTIGE_COST_BASE = 1e9;
   private readonly PRESTIGE_BONUS_PER_LEVEL = 0.05;
+  private readonly SAVE_VERSION = 2; // sould be removed later
 
   private readonly SHIP_SLOTS: Record<ShipId, SlotType[]> = {
     paper_boat:        [],
@@ -163,10 +164,21 @@ export class GameService {
   private saveGame() {
     localStorage.setItem('paperPiratesSave', JSON.stringify(this.state()));
     localStorage.setItem('paperPiratesLastSaveTime', Date.now().toString());
+    localStorage.setItem('paperPiratesSaveVersion', this.SAVE_VERSION.toString()); // sould be removed later
   }
 
   private loadGame() {
     const saved = localStorage.getItem('paperPiratesSave');
+
+    // sould be removed later
+    const savedVersion = parseInt(localStorage.getItem('paperPiratesSaveVersion') || '1');
+
+    if (savedVersion < this.SAVE_VERSION) {
+      localStorage.clear();
+      localStorage.setItem('paperPiratesSaveVersion', this.SAVE_VERSION.toString());
+      return;
+    }
+
     const lastSaveTime = localStorage.getItem('paperPiratesLastSaveTime');
 
     if (saved) {
