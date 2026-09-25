@@ -20,6 +20,10 @@ export class DevTools {
     this.gameService.state.update(s => ({ ...s, reputation: s.reputation + 100000 }));
   }
 
+  maximizeAccount() {
+    this.gameService.maximizeAccount();
+  }
+
   resetGame() {
     localStorage.clear();
     this.windowRef.location.reload();

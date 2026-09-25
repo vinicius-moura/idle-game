@@ -21,7 +21,8 @@ describe('StatsClicker', () => {
         upgrades: {},
         currentShip: 'paper_boat'
       }),
-      click: jasmine.createSpy('click')
+      click: jasmine.createSpy('click'),
+      getReputationPerSecondWithCrew: () => mockGameService.state().reputationPerSecond
     };
 
     mockTourService = {
@@ -57,6 +58,12 @@ describe('StatsClicker', () => {
   it('should call gameService.click when onBtnClick is executed', () => {
     component.onBtnClick();
     expect(mockGameService.click).toHaveBeenCalled();
+  });
+
+  it('uses the reputation amount returned by the game service for the floating text', () => {
+    mockGameService.click.and.returnValue(12.5);
+    component.onBtnClick();
+    expect(component.floatingTexts[0].text).toBe('+13');
   });
 
   it('should add a floating text when onBtnClick is executed', () => {

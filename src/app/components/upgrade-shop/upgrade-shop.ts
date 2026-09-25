@@ -56,9 +56,11 @@ export class UpgradeShop {
 
   getUpgradeState(id: string) {
     const upgradeRecord = this.state().upgrades[id];
-    if (upgradeRecord) return upgradeRecord;
     const base = UPGRADES.find(u => u.id === id);
-    return { level: 0, cost: base?.baseCost || 0 };
+    return {
+      level: upgradeRecord?.level ?? 0,
+      cost: this.gameService.getUpgradeCost(id) ?? upgradeRecord?.cost ?? base?.baseCost ?? 0
+    };
   }
 
   isShipAvailable(id: string): boolean {

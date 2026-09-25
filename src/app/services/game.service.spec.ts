@@ -1,10 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { GameService } from './game.service';
 import { UPGRADES } from '../data/upgrades.data';
+import { CREW_MEMBERS } from '../data/crew.data';
 
 describe('GameService', () => {
   let service: GameService;
   let intervals: Record<number, Function> = {};
+
+  const activateCrew = (...crewIds: string[]) => {
+    const slots = crewIds.map(id => {
+      const member = CREW_MEMBERS.find(candidate => candidate.id === id)!;
+      return { slotType: member.slotType, crewMemberId: member.id };
+    });
+    service.state.update(state => ({ ...state, crew: { ...state.crew, slots } }));
+  };
 
   beforeEach(() => {
     localStorage.clear();
@@ -77,7 +86,8 @@ describe('GameService', () => {
       clickPower: 1,
       prestige: { level: 0, permanentBonus: 1 },
       upgrades: {},
-      currentShip: 'paper_boat'
+      currentShip: 'paper_boat',
+      crew: { unlocked: [], slots: [] }
     };
     localStorage.setItem('paperPiratesSave', JSON.stringify(savedState));
     const freshService = new GameService();
@@ -129,6 +139,87 @@ describe('GameService', () => {
   it('should report all crew slots as locked before unlocking ships', () => {
     expect(service.lockedSlotTypes).toEqual(service.allSlotTypes);
     expect(service.allSlotTypes.length).toBe(10);
+  });
+
+  it('maximizes the account with every upgrade at level 100 and all crew equipped', () => {
+    service.offlineGains.set(500);
+    service.maximizeAccount();
+    const state = service.state();
+
+    expect(state.reputation).toBe(Number.MAX_SAFE_INTEGER);
+    expect(state.currentShip).toBe('heart_of_gold');
+    expect(Object.keys(state.upgrades)).toEqual(UPGRADES.map(upgrade => upgrade.id));
+    expect(Object.values(state.upgrades).every(upgrade => upgrade.level === 100)).toBeTrue();
+    expect(state.crew.unlocked).toEqual(CREW_MEMBERS.map(member => member.id));
+    expect(state.crew.slots.map(slot => slot.crewMemberId)).toEqual(CREW_MEMBERS.map(member => member.id));
+    expect(state.crew.slots).toHaveSize(10);
+    expect(service.offlineGains()).toBeNull();
+    expect(state.clickPower).toBeGreaterThan(1);
+    expect(state.reputationPerSecond).toBeGreaterThan(0);
+  });
+
+  it('applies Luffy, Usopp, and Zoro buffs to click and passive income', () => {
+    activateCrew('luffy', 'usopp', 'zoro');
+    service.state.update(state => ({ ...state, reputationPerSecond: 100 }));
+    spyOn(Math, 'random').and.returnValues(0.9, 0);
+
+    expect(service.getClickPowerWithCrew()).toBeCloseTo(1.375);
+    expect(service.getReputationPerSecondWithCrew()).toBeCloseTo(110);
+    expect(service.click()).toBeCloseTo(1.375);
+    expect(service.click()).toBeCloseTo(2.75);
+    expect(service.state().reputation).toBeCloseTo(4.125);
+  });
+
+  it('applies Chopper offline gains and the Nami plus Jinbe synergy', () => {
+    activateCrew('chopper');
+    expect(service.getOfflineGainMultiplier()).toBeCloseTo(1.15);
+    activateCrew('nami');
+    expect(service.getOfflineGainMultiplier()).toBeCloseTo(1.25);
+    activateCrew('jinbe');
+    expect(service.getOfflineGainMultiplier()).toBe(1);
+    activateCrew('nami', 'jinbe');
+    expect(service.getOfflineGainMultiplier()).toBeCloseTo(1.375);
+  });
+
+  it('lets Brook strengthen other crew buffs and Robin increase prestige gains', () => {
+    activateCrew('robin');
+    expect(service.getPrestigeGainMultiplier()).toBeCloseTo(1.2);
+    activateCrew('brook', 'robin', 'luffy');
+    expect(service.getPrestigeGainMultiplier()).toBeCloseTo(1.24);
+    expect(service.getReputationPerSecondWithCrew()).toBe(0);
+    activateCrew('brook');
+    expect(service.getPrestigeGainMultiplier()).toBe(1);
+  });
+
+  it('applies Sanji discount to the displayed and charged upgrade cost', () => {
+    activateCrew('sanji');
+    expect(service.getUpgradeCost('bigger_sails')).toBe(9);
+    service.state.update(state => ({ ...state, reputation: 9 }));
+    service.buyUpgrade('bigger_sails');
+    expect(service.state().reputation).toBe(0);
+    expect(service.getUpgradeCost('bigger_sails')).toBe(10);
+    expect(service.getUpgradeCost('not-an-upgrade')).toBe(0);
+  });
+
+  it('ignores stale or incorrectly slotted crew assignments', () => {
+    service.state.update(state => ({ ...state, crew: { ...state.crew, slots: [
+      { slotType: 'captain', crewMemberId: null },
+      { slotType: 'captain', crewMemberId: 'missing-member' },
+      { slotType: 'combatant', crewMemberId: 'usopp' }
+    ] } }));
+    expect(service.getClickPowerWithCrew()).toBe(1);
+  });
+
+  it('defaults Jinbe synergy to zero if an older crew record has no buff data', () => {
+    const jinbe = CREW_MEMBERS.find(member => member.id === 'jinbe')!;
+    const originalBuffs = jinbe.buffs;
+    jinbe.buffs = {};
+    try {
+      activateCrew('nami', 'jinbe');
+      expect(service.getOfflineGainMultiplier()).toBeCloseTo(1.25);
+    } finally {
+      jinbe.buffs = originalBuffs;
+    }
   });
 
   it('should move crew between slots and clear a crew member when reassigned to the same slot', () => {
@@ -197,7 +288,8 @@ describe('GameService', () => {
         clickPower: 1,
         prestige: { level: 0, permanentBonus: 1 },
         upgrades: { [idleUpgrade.id]: { level: 1, cost: idleUpgrade.baseCost } },
-        currentShip: 'paper_boat'
+        currentShip: 'paper_boat',
+        crew: { unlocked: [], slots: [] }
       };
 
       localStorage.setItem(
@@ -210,6 +302,29 @@ describe('GameService', () => {
       const expectedGains = (idleUpgrade.effect || 0) * secondsOffline;
 
       expect(freshService.offlineGains()).toBeCloseTo(expectedGains, 0);
+    });
+
+    it('applies active crew bonuses to reputation collected while away', () => {
+      const idleUpgrade = UPGRADES.find(upgrade => upgrade.id === 'imaginary_friend')!;
+      const crew = ['luffy', 'nami', 'jinbe', 'chopper', 'brook'].map(id => {
+        const member = CREW_MEMBERS.find(candidate => candidate.id === id)!;
+        return { slotType: member.slotType, crewMemberId: member.id };
+      });
+      const savedState = {
+        reputation: 0,
+        reputationPerSecond: 100,
+        clickPower: 1,
+        prestige: { level: 0, permanentBonus: 1 },
+        upgrades: { [idleUpgrade.id]: { level: 100, cost: idleUpgrade.baseCost } },
+        currentShip: 'heart_of_gold',
+        crew: { unlocked: crew.map(slot => slot.crewMemberId), slots: crew }
+      };
+      localStorage.setItem('paperPiratesSaveVersion', '2');
+      localStorage.setItem('paperPiratesSave', JSON.stringify(savedState));
+      localStorage.setItem('paperPiratesLastSaveTime', (Date.now() - 20000).toString());
+
+      const loadedService = new GameService();
+      expect(loadedService.offlineGains()).toBeCloseTo(100 * 1.12 * 1.66 * 20, 0);
     });
 
     it('should cap offline gains at 8 hours', () => {

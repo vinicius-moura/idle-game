@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { signal } from '@angular/core';
 import { Crew } from './crew';
 import { GameService } from '../../services/game.service';
@@ -6,6 +6,7 @@ import { CREW_MEMBERS } from '../../data/crew.data';
 
 describe('Crew', () => {
   let component: Crew;
+  let fixture: ComponentFixture<Crew>;
   let gameService: any;
 
   beforeEach(() => {
@@ -19,7 +20,8 @@ describe('Crew', () => {
       removeCrew: jasmine.createSpy('removeCrew')
     };
     TestBed.configureTestingModule({ imports: [Crew], providers: [{ provide: GameService, useValue: gameService }] });
-    component = TestBed.createComponent(Crew).componentInstance;
+    fixture = TestBed.createComponent(Crew);
+    component = fixture.componentInstance;
   });
 
   it('derives unlocked, assigned, available, and locked crew data', () => {
@@ -62,5 +64,22 @@ describe('Crew', () => {
     expect(gameService.assignCrew).toHaveBeenCalledTimes(1);
     component.onDropToAvailable({ item: { data: zoro } } as any);
     expect(gameService.removeCrew).toHaveBeenCalledWith('combatant');
+  });
+
+  it('shows equipped status and buff text separately from unequipped and locked crew', () => {
+    component.isOpen = true;
+    fixture.detectChanges();
+    const activeSlot = fixture.nativeElement.querySelector('.crew-active-info') as HTMLElement;
+    expect(activeSlot.textContent).toContain('EQUIPPED · BUFF ACTIVE');
+    expect(activeSlot.textContent).toContain('5% chance for a critical click');
+
+    const cards = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.crew-roster-card')) as HTMLElement[];
+    const zoroCard = cards.find(card => card.textContent?.includes('Roronoa Zoro'))!;
+    const luffyCard = cards.find(card => card.textContent?.includes('Monkey D. Luffy'))!;
+    const lockedCard = cards.find(card => card.textContent?.includes('LOCKED'))!;
+
+    expect(zoroCard.textContent).toContain('EQUIPPED · ACTIVE');
+    expect(luffyCard.textContent).toContain('UNEQUIPPED · INACTIVE');
+    expect(lockedCard.textContent).toContain('Unlock this pirate to reveal their buff.');
   });
 });

@@ -9,7 +9,7 @@ import { Prestige } from '../prestige/prestige';
 describe('LeftPanel', () => {
   it('shows crew control only when ship slots exist and opens both panels', () => {
     const state = signal<any>({ crew: { unlocked: [], slots: [] } });
-    TestBed.configureTestingModule({ imports: [LeftPanel], providers: [{ provide: GameService, useValue: { state } }] });
+    TestBed.configureTestingModule({ imports: [LeftPanel], providers: [{ provide: GameService, useValue: { state, lockedSlotTypes: [] } }] });
     const fixture = TestBed.createComponent(LeftPanel);
     fixture.detectChanges();
     const component = fixture.componentInstance;

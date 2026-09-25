@@ -11,8 +11,9 @@ describe('DevTools', () => {
   it('adds reputation and resets local saves before reloading', () => {
     const state = signal<any>({ reputation: 25 });
     const reload = jasmine.createSpy('reload');
+    const maximizeAccount = jasmine.createSpy('maximizeAccount');
     TestBed.configureTestingModule({ imports: [DevTools], providers: [
-      { provide: GameService, useValue: { state } },
+      { provide: GameService, useValue: { state, maximizeAccount } },
       { provide: WINDOW_REF, useValue: { location: { reload } } }
     ] });
     const component = TestBed.createComponent(DevTools).componentInstance;
@@ -23,5 +24,16 @@ describe('DevTools', () => {
     component.resetGame();
     expect(localStorage.clear).toHaveBeenCalled();
     expect(reload).toHaveBeenCalled();
+  });
+
+  it('forwards the max account action to the game service', () => {
+    const maximizeAccount = jasmine.createSpy('maximizeAccount');
+    TestBed.configureTestingModule({ imports: [DevTools], providers: [
+      { provide: GameService, useValue: { state: signal({ reputation: 0 }), maximizeAccount } }
+    ] });
+    const fixture = TestBed.createComponent(DevTools);
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.dev-btn--max').click();
+    expect(maximizeAccount).toHaveBeenCalled();
   });
 });

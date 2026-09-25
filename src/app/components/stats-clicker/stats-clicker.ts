@@ -45,10 +45,13 @@ export class StatsClicker implements OnInit {
     setTimeout(() => this.tourService.startClickTour(), 300);
   }
 
+  get reputationPerSecondWithCrew(): number {
+    return this.gameService.getReputationPerSecondWithCrew();
+  }
+
   onBtnClick() {
-    const power = this.state().clickPower;
-    this.gameService.click();
-    this.showFloatingText(power);
+    const gained = this.gameService.click() ?? this.state().clickPower;
+    this.showFloatingText(gained);
   }
 
   showFloatingText(amount: number) {

@@ -42,6 +42,18 @@ export type SlotType =
 
 export type CrewRarity = 'common' | 'rare' | 'epic' | 'legendary';
 
+export interface CrewBuffs {
+  reputationBonus?: number;
+  clickPowerBonus?: number;
+  criticalChance?: number;
+  criticalDamageBonus?: number;
+  offlineBonus?: number;
+  upgradeCostReduction?: number;
+  prestigeBonus?: number;
+  crewBuffBonus?: number;
+  namiOfflineSynergy?: number;
+}
+
 export interface CrewMember {
   id: string;
   name: string;
@@ -49,6 +61,7 @@ export interface CrewMember {
   slotType: SlotType;
   rarity: CrewRarity;
   unlocked: boolean;
+  buffs?: CrewBuffs;
   // buffs virão depois
 }
 

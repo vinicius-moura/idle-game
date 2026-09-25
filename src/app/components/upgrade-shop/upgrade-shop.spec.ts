@@ -3,6 +3,7 @@ import { UpgradeShop } from './upgrade-shop';
 import { GameService } from '../../services/game.service';
 import { TourService } from '../../services/tour.service';
 import { signal } from '@angular/core';
+import { UPGRADES } from '../../data/upgrades.data';
 
 describe('UpgradeShop', () => {
   let component: UpgradeShop;
@@ -18,7 +19,10 @@ describe('UpgradeShop', () => {
           'test_1': { level: 2, cost: 50 }
         }
       }),
-      buyUpgrade: jasmine.createSpy('buyUpgrade')
+      buyUpgrade: jasmine.createSpy('buyUpgrade'),
+      getUpgradeCost: jasmine.createSpy('getUpgradeCost').and.callFake((id: string) =>
+        mockGameService.state().upgrades[id]?.cost ?? UPGRADES.find(upgrade => upgrade.id === id)?.baseCost ?? 0
+      )
     };
 
     mockTourService = {
@@ -83,6 +87,13 @@ describe('UpgradeShop', () => {
   it('should unlock ships above threshold', () => {
     mockGameService.state.update((s: any) => ({ ...s, reputation: 20000 }));
     expect(component.shipsUnlocked).toBeTrue();
+  });
+
+  it('falls back to its stored price if the service has no effective price', () => {
+    mockGameService.getUpgradeCost.and.returnValue(undefined);
+    expect(component.getUpgradeState('test_1')).toEqual({ level: 2, cost: 50 });
+    expect(component.getUpgradeState('wax_coating')).toEqual({ level: 0, cost: 120 });
+    expect(component.getUpgradeState('not-an-upgrade')).toEqual({ level: 0, cost: 0 });
   });
 
   it('defaults an unknown upgrade to level and cost zero', () => {
