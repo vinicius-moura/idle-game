@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { UpgradeShop } from './upgrade-shop';
 import { GameService } from '../../services/game.service';
 import { TourService } from '../../services/tour.service';
@@ -83,5 +83,28 @@ describe('UpgradeShop', () => {
   it('should unlock ships above threshold', () => {
     mockGameService.state.update((s: any) => ({ ...s, reputation: 20000 }));
     expect(component.shipsUnlocked).toBeTrue();
+  });
+
+  it('defaults an unknown upgrade to level and cost zero', () => {
+    expect(component.getUpgradeState('not-an-upgrade')).toEqual({ level: 0, cost: 0 });
+  });
+
+  it('triggers the ship tour once when reputation unlocks ships', fakeAsync(() => {
+    mockTourService.hasSeenTour.and.returnValue(false);
+    mockGameService.state.update((s: any) => ({ ...s, reputation: 20000 }));
+    fixture.detectChanges();
+    tick(300);
+    expect(mockTourService.startShipTour).toHaveBeenCalledTimes(1);
+    mockGameService.state.update((s: any) => ({ ...s, reputation: 25000 }));
+    fixture.detectChanges();
+    tick(300);
+    expect(mockTourService.startShipTour).toHaveBeenCalledTimes(1);
+  }));
+
+  it('allows the first ship and requires the previous ship for later ships', () => {
+    expect(component.isShipAvailable('ship_toy_boat')).toBeTrue();
+    expect(component.isShipAvailable('ship_huckle_raft')).toBeFalse();
+    mockGameService.state.update((s: any) => ({ ...s, upgrades: { ship_toy_boat: { level: 1, cost: Infinity } } }));
+    expect(component.isShipAvailable('ship_huckle_raft')).toBeTrue();
   });
 });

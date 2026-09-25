@@ -1,5 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, InjectionToken } from '@angular/core';
 import { GameService } from '../../services/game.service';
+
+export const WINDOW_REF = new InjectionToken<Window>('WINDOW_REF', {
+  providedIn: 'root',
+  factory: () => window
+});
 
 @Component({
   selector: 'app-dev-tools',
@@ -9,6 +14,7 @@ import { GameService } from '../../services/game.service';
 })
 export class DevTools {
   private gameService = inject(GameService);
+  private windowRef = inject(WINDOW_REF);
 
   addReputation() {
     this.gameService.state.update(s => ({ ...s, reputation: s.reputation + 100000 }));
@@ -16,6 +22,6 @@ export class DevTools {
 
   resetGame() {
     localStorage.clear();
-    location.reload();
+    this.windowRef.location.reload();
   }
 }

@@ -39,7 +39,11 @@ describe('Game Models', () => {
       upgrades: {
         'up_1': { level: 1, cost: 100 }
       },
-      currentShip: 'paper_boat'
+      currentShip: 'paper_boat',
+      crew: {
+        unlocked: [],
+        slots: []
+      }
     };
 
     expect(gameState.reputation).toBe(1000);
