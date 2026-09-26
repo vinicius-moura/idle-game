@@ -9,20 +9,25 @@ h1 {
 }
 
 .stats-container {
+  box-sizing: border-box;
   text-align: center;
-  padding: 15px;
-  background: #000;
+  margin: 10px 12px 0;
+  padding: 12px;
+  border: $paper-border-width solid $paper-ink;
+  border-radius: $paper-radius;
+  background: $paper-highlight;
+  box-shadow: 0 2px 0 $paper-ink;
 
   .reputation-display {
     font-size: 2rem;
     font-weight: 700;
-    color: $gold-color;
-    text-shadow: 1px 1px #000;
+    color: $paper-ink;
+    text-shadow: 1px 1px rgba(255 255 255 / 70%);
   }
 
   .rps-display-container {
     font-size: 1rem;
-    color: #7f8c8d;
+    color: $paper-ink-soft;
     
     p {
       display: inline;
@@ -36,15 +41,20 @@ h1 {
   position: relative;
 
   .clicker-btn {
-    background: none;
-    border: none;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
     cursor: pointer;
     padding: 0;
-    transition: transform 0.1s ease-out;
+    margin: 10px 0 14px;
+    transition: transform 0.12s ease-out, background-color 0.18s, box-shadow 0.12s;
     animation: bob 3s ease-in-out infinite;
 
     &:hover {
-      background-color: none;
+      background: transparent;
     }
 
     &:active {
@@ -61,8 +71,8 @@ h1 {
   position: absolute;
   font-family: $font-display;
   font-size: 1.5rem;
-  color: $gold-color;
-  text-shadow: 1px 1px #000;
+  color: $paper-action;
+  text-shadow: 1px 1px #fff;
   pointer-events: none;
   animation: float-up 1s ease-out forwards;
 }
@@ -75,8 +85,9 @@ h1 {
 
 @media (width <= 768px) {
   .stats-container {
-    padding: 5px;
-    width: 100%;
+    margin: 6px 8px 0;
+    padding: 6px;
+    width: calc(100% - 16px);
 
     .rps-display-container {
       font-size: 0.75rem;
@@ -90,9 +101,11 @@ h1 {
 
     .clicker-btn {
       width: fit-content;
+      max-height: calc(25vh + 24px);
 
       .ship-img {
-        height: 25vh;
+        max-height: 25vh;
+        height: auto;
       }
     }
   }

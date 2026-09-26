@@ -1,5 +1,21 @@
 @use '../base/variables' as *;
 
+:root {
+  --paper-ink: #51351e;
+  --paper-ink-soft: #795c3a;
+  --paper-surface: #fef9e7;
+  --paper-highlight: #f4dfad;
+  --paper-hover: #ffe9b7;
+  --paper-inactive: #e6dcc5;
+  --paper-disabled: #d3cbb9;
+  --paper-action: #bd2b1b;
+  --paper-action-secondary: #092a4b;
+  --paper-radius: 8px;
+  --paper-border-width: 2px;
+  --paper-shadow: 0 3px 0 var(--paper-ink);
+  --paper-shadow-soft: 0 4px 12px rgba(81 53 30 / 16%);
+}
+
 body {
   font-family: $font-main;
   background-color: $bg-color;

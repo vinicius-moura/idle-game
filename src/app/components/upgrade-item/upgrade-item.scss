@@ -3,62 +3,113 @@
 .upgrade {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   padding: 10px;
-  margin-bottom: 2px;
-  background-color: #fff;
-  border-left: 5px solid $accent-color;
-  transition: background-color 0.2s;
+  margin-bottom: 8px;
+  background-color: $paper-surface;
+  border: $paper-border-width solid $paper-ink;
+  border-left-width: 6px;
+  border-left-color: $paper-action;
+  border-radius: $paper-radius;
+  box-shadow: 0 2px 0 rgba(81 53 30 / 45%);
+  transition: background-color 0.2s, opacity 0.2s, box-shadow 0.2s;
 
   &.type-click {
-    border-left-color: $accent-color;;
+    --buy-border: #a52115;
+    border-left-color: $paper-action;
 
     .buy-btn {
-      background-color: $accent-color;;
+      background-color: #f3a39a;
+      border-color: #a52115;
     }
   }
 
   &.type-idle {
-    border-left-color: $accent-color;;
+    --buy-border: #16436b;
+    border-left-color: $paper-action-secondary;
 
     .buy-btn {
-      background-color: $accent-color;;
+      background-color: #a9c7df;
+      border-color: #16436b;
     }
   }
 
   &.type-ship {
-    border-left-color: $upgrade-ships-color;
+    --buy-border: #a77a16;
+    border-left-color: $gold-color;
 
     .buy-btn {
-      background-color: $upgrade-ships-color;
+      background-color: #f5df91;
+      border-color: #a77a16;
     }
   }
 
   &.disabled {
-    border-left-color: $disabled-color;
-    opacity: 0.7;
+    border-color: $paper-disabled;
+    border-left-color: $paper-disabled;
+    background-color: $paper-inactive;
+    box-shadow: none;
+    opacity: 0.68;
   }
 
   .upgrade-info {
     flex-grow: 1;
+    min-width: 0;
+    color: $paper-ink;
 
     h3 { 
       margin: 5px 0; 
+      color: $paper-ink;
     }
 
     p { 
       font-size: 12px;
       margin: 5px 0; 
+      color: $paper-ink-soft;
     }
   }
 
   .upgrade-stats {
+    flex: 0 0 110px;
     text-align: right;
     font-size: 12px;
 
     .upgrade-cost {
       font-weight: 700;
-      color: $gold-color;
+      color: $paper-action;
+    }
+  }
+
+  .buy-btn {
+    box-sizing: border-box;
+    flex: 0 0 112px;
+    width: 112px;
+    padding: 8px 10px;
+    border: $paper-border-width solid var(--buy-border, #a52115);
+    border-radius: $paper-radius;
+    box-shadow: 0 2px 0 var(--buy-border, #a52115);
+    color: #303238;
+    font-family: $font-display;
+    font-weight: 700;
+    transition: transform 0.12s, box-shadow 0.12s, background-color 0.18s;
+
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled) {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 0 var(--buy-border, #a52115);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: 0 0 0 var(--buy-border, #a52115);
+    }
+
+    &:disabled {
+      background: $paper-disabled;
+      color: $paper-ink-soft;
+      box-shadow: none;
+      filter: none;
     }
   }
 }
@@ -80,6 +131,7 @@
     }
 
     .buy-btn {
+      flex: 0 0 100%;
       width: 100%;
     }
   }

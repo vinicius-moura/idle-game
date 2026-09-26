@@ -56,6 +56,7 @@ describe('App', () => {
     fixture.detectChanges();
 
     const portugueseButton = fixture.nativeElement.querySelector('.language-options button') as HTMLButtonElement;
+    expect(portugueseButton.querySelector('.language-flag--br')).toBeTruthy();
     portugueseButton.click();
     fixture.detectChanges();
     expect(i18n.language()).toBe('pt');
@@ -63,6 +64,7 @@ describe('App', () => {
     expect(fixture.nativeElement.querySelector('.shop-tab').textContent).toContain('Melhorias');
 
     const englishButton = fixture.nativeElement.querySelectorAll('.language-options button')[1] as HTMLButtonElement;
+    expect(englishButton.querySelector('.language-flag--us')).toBeTruthy();
     englishButton.click();
     fixture.detectChanges();
     expect(i18n.language()).toBe('en');

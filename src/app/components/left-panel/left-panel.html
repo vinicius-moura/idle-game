@@ -1,10 +1,10 @@
 <div class="left-panel-buttons">
   @if (hasCrewSlots) {
-    <button class="left-panel-btn crew" (click)="crewOpen.set(true)">
+    <button class="left-panel-btn crew" [class.active]="crewOpen()" [attr.aria-pressed]="crewOpen()" (click)="crewOpen.set(true)">
       {{ 'panel.crew' | translate }}
     </button>
   }
-  <button class="left-panel-btn prestige" (click)="prestigeOpen.set(true)">
+  <button class="left-panel-btn prestige" [class.active]="prestigeOpen()" [attr.aria-pressed]="prestigeOpen()" (click)="prestigeOpen.set(true)">
     {{ 'panel.prestige' | translate }}
   </button>
 </div>

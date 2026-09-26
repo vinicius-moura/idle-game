@@ -3,6 +3,8 @@
 .upgrades-container {
   overflow-y: auto;
   flex: 1;
+  padding: 10px 10px 10px;
+  scrollbar-color: $paper-ink-soft $paper-inactive;
 }
 
 .shop-wrapper {
@@ -14,28 +16,47 @@
 .shop-tabs {
   display: flex;
   flex-shrink: 0;
+  gap: 6px;
+  padding: 6px 8px 0;
 }
 
 .shop-tab {
   flex: 1;
-  padding: 8px 16px;
-  border: none;
+  min-height: 42px;
+  padding: 7px 12px;
+  border: 1px solid #b6a37e;
+  border-radius: 7px;
+  background: #e3d8c1;
+  color: #686b70;
+  box-shadow: none;
   cursor: pointer;
-  font-size: 28px;
+  font-size: clamp(16px, 2vw, 24px);
   font-weight: bold;
-  opacity: 0.6;
-  transition: opacity 0.2s;
+  opacity: 0.85;
+  transition: opacity 0.18s, background-color 0.18s, color 0.18s, border-color 0.18s;
 
   &.ship {
-    background-color: $upgrade-ships-color;
+    background: #e3d8c1;
   }
 
   &.active {
+    background: $paper-highlight;
+    color: #202124;
     opacity: 1;
+    border-color: #9a7b39;
+    border-color: #55585d;
+    box-shadow: inset 0 0 0 1px #173c5c;
   }
 
   &:hover {
-    opacity: 0.9;
+    background: #f6e5b7;
+    color: #303238;
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #55585d;
+    outline-offset: 2px;
   }
 
   &.solo {
