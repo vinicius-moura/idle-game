@@ -66,6 +66,11 @@ describe('StatsClicker', () => {
     expect(component.floatingTexts[0].text).toBe('+13');
   });
 
+  it('uses the reputation number format for large floating gains', () => {
+    component.showFloatingText(1250000);
+    expect(component.floatingTexts[0].text).toBe('+1.25M');
+  });
+
   it('should add a floating text when onBtnClick is executed', () => {
     component.onBtnClick();
     expect(component.floatingTexts.length).toBe(1);

@@ -22,6 +22,7 @@ interface FloatingText {
 export class StatsClicker implements OnInit {
   public gameService = inject(GameService);
   private tourService = inject(TourService);
+  private formatNumberPipe = new FormatNumberPipe();
   state = this.gameService.state;
 
   public floatingTexts: FloatingText[] = [];
@@ -57,7 +58,9 @@ export class StatsClicker implements OnInit {
 
   showFloatingText(amount: number) {
     const id = this.nextFloatId++;
-    const formattedText = amount >= 1 ? amount.toFixed(0) : amount.toFixed(1);
+    const formattedText = amount < 1
+      ? amount.toFixed(1)
+      : this.formatNumberPipe.transform(amount);
 
     const newText: FloatingText = {
       id,
