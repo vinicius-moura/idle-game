@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GameService } from '../../services/game.service';
 import { TourService } from '../../services/tour.service';
 import { FormatNumberPipe } from '../../pipes/format-number-pipe';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 import { ShipId } from '../../models/game.model';
 
 interface FloatingText {
@@ -14,7 +15,7 @@ interface FloatingText {
 @Component({
   selector: 'app-stats-clicker',
   standalone: true,
-  imports: [CommonModule, FormatNumberPipe],
+  imports: [CommonModule, FormatNumberPipe, TranslatePipe],
   templateUrl: './stats-clicker.html',
   styleUrl: './stats-clicker.scss'
 })

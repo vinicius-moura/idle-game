@@ -1,11 +1,11 @@
 <div class="left-panel-buttons">
   @if (hasCrewSlots) {
     <button class="left-panel-btn crew" (click)="crewOpen.set(true)">
-      Crew
+      {{ 'panel.crew' | translate }}
     </button>
   }
   <button class="left-panel-btn prestige" (click)="prestigeOpen.set(true)">
-    Prestige
+    {{ 'panel.prestige' | translate }}
   </button>
 </div>
 

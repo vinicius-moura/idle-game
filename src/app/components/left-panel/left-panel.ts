@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { GameService } from '../../services/game.service';
 import { Crew } from '../crew/crew';
 import { Prestige } from '../prestige/prestige';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-left-panel',
   standalone: true,
-  imports: [CommonModule, Crew, Prestige],
+  imports: [CommonModule, Crew, Prestige, TranslatePipe],
   templateUrl: './left-panel.html',
   styleUrl: './left-panel.scss'
 })

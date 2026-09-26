@@ -1,5 +1,6 @@
 import { Component, inject, InjectionToken } from '@angular/core';
 import { GameService } from '../../services/game.service';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 export const WINDOW_REF = new InjectionToken<Window>('WINDOW_REF', {
   providedIn: 'root',
@@ -9,6 +10,7 @@ export const WINDOW_REF = new InjectionToken<Window>('WINDOW_REF', {
 @Component({
   selector: 'app-dev-tools',
   standalone: true,
+  imports: [TranslatePipe],
   templateUrl: './dev-tools.html',
   styleUrl: './dev-tools.scss'
 })

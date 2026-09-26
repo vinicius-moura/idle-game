@@ -196,6 +196,36 @@
   gap: 10px;
 }
 
+.crew-roster-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 1px 8px;
+  scrollbar-width: thin;
+
+  button {
+    flex: 0 0 auto;
+    padding: 7px 11px;
+    border: 1px solid #c7ced1;
+    border-radius: 16px;
+    background: #f5f6f6;
+    color: #465056;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: #248a62;
+    }
+  }
+
+  .crew-roster-tab--selected {
+    border-color: #18764f;
+    background: #18764f;
+    color: white;
+  }
+}
+
 @media (min-width: 561px) {
   .crew-slots__grid {
     grid-auto-rows: minmax(124px, 1fr);

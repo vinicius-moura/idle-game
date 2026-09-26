@@ -3,13 +3,13 @@
         {{ state().reputation | formatNumber }}
     </div>
     <div class="rps-display-container">
-        <p>{{ reputationPerSecondWithCrew | formatNumber }}</p> per second
+        <p>{{ reputationPerSecondWithCrew | formatNumber }}</p> {{ 'game.perSecond' | translate }}
     </div>
 </div>
 
 <div class="clicker-area">
     <button id="clicker-btn" class="clicker-btn" (click)="onBtnClick()">
-        <img [src]="shipImages[state().currentShip]" class="ship-img" alt="Current Ship">
+        <img [src]="shipImages[state().currentShip]" class="ship-img" [attr.alt]="'ship.' + state().currentShip | translate">
     </button>
     
     @for (float of floatingTexts; track float.id) {

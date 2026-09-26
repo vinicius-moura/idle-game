@@ -1,8 +1,8 @@
 <div class="dev-tools">
-  <span class="dev-tools__label">🛠️ DEV</span>
+  <span class="dev-tools__label">🛠️ {{ 'dev.label' | translate }}</span>
   <div class="dev-tools__buttons">
-    <button class="dev-btn dev-btn--max" (click)="maximizeAccount()">Max account</button>
-    <button class="dev-btn dev-btn--reset" (click)="resetGame()">🗑️ Reset</button>
+    <button class="dev-btn dev-btn--max" (click)="maximizeAccount()">{{ 'dev.max' | translate }}</button>
+    <button class="dev-btn dev-btn--reset" (click)="resetGame()">🗑️ {{ 'dev.reset' | translate }}</button>
     <button class="dev-btn dev-btn--rep" (click)="addReputation()">💰 +100k</button>
   </div>
 </div>

@@ -4,13 +4,14 @@ import { GameService } from '../../services/game.service';
 import { TourService } from '../../services/tour.service';
 import { UPGRADES } from '../../data/upgrades.data';
 import { UpgradeItem } from '../upgrade-item/upgrade-item';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 type ShopTab = 'upgrades' | 'ship';
 
 @Component({
   selector: 'app-upgrade-shop',
   standalone: true,
-  imports: [CommonModule, UpgradeItem],
+  imports: [CommonModule, UpgradeItem, TranslatePipe],
   templateUrl: './upgrade-shop.html',
   styleUrl: './upgrade-shop.scss'
 })

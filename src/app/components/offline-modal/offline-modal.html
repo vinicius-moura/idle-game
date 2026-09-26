@@ -1,8 +1,8 @@
 <app-modal *ngIf="gameService.offlineGains() !== null" (close)="gameService.dismissOfflineGains()">
-  <h3>⚓ Welcome back, Captain!</h3>
-  <p>While you were away, your crew looted:</p>
+  <h3>⚓ {{ 'offline.title' | translate }}</h3>
+  <p>{{ 'offline.message' | translate }}</p>
   <p class="offline-amount">
-    +{{ gameService.offlineGains()! | formatNumber }} Reputation
+    +{{ gameService.offlineGains()! | formatNumber }} {{ 'game.reputation' | translate }}
   </p>
-  <button (click)="gameService.dismissOfflineGains()">Nice!</button>
+  <button (click)="gameService.dismissOfflineGains()">{{ 'offline.claim' | translate }}</button>
 </app-modal>

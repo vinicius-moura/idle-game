@@ -29,9 +29,14 @@
   font-size: 24px;
   font-weight: bold;
   color: #444;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  line-height: 1;
   cursor: pointer;
 
   &:hover {
     color: red;
+    background: transparent;
   }
 }

@@ -2,18 +2,18 @@
   <app-modal (close)="close.emit()">
     <div class="crew-container">
       <header class="crew-header">
-        <h2>Ship Crew</h2>
-        <p>Drag an available pirate into a matching ship slot to equip them and activate their buff.</p>
+        <h2>{{ 'crew.title' | translate }}</h2>
+        <p>{{ 'crew.instructions' | translate }}</p>
       </header>
 
       <section class="crew-slots-section" aria-labelledby="active-crew-title">
         <div class="crew-section-heading">
-          <h3 id="active-crew-title">Equipped crew</h3>
-          <span>Buffs from these pirates are active</span>
+          <h3 id="active-crew-title">{{ 'crew.equipped' | translate }}</h3>
+          <span>{{ 'crew.activeHint' | translate }}</span>
         </div>
 
         @if (state().crew.slots.length === 0) {
-          <p class="crew-empty">Upgrade your ship to unlock crew slots.</p>
+          <p class="crew-empty">{{ 'crew.emptySlots' | translate }}</p>
         } @else {
           <div class="crew-slots__grid">
             @for (slot of state().crew.slots; track slot.slotType) {
@@ -38,15 +38,15 @@
                         </div>
                       </div>
                       <div class="crew-active-info">
-                        <span class="crew-status crew-status--equipped">EQUIPPED · BUFF ACTIVE</span>
+                        <span class="crew-status crew-status--equipped">{{ 'crew.status.active' | translate }}</span>
                         <strong>{{ member.name }}</strong>
-                        <span>{{ member.description }}</span>
+                        <span>{{ ('crew.' + member.id) | translate }}</span>
                       </div>
                     </div>
                   } @else {
                     <div class="crew-slot__empty">
                       <span class="crew-slot__plus">+</span>
-                      <span>Drop {{ slotLabel(slot.slotType) }} here</span>
+                      <span>{{ 'crew.drop' | translate: { slot: slotLabel(slot.slotType) } }}</span>
                     </div>
                   }
                 </div>
@@ -61,7 +61,7 @@
               <div class="crew-locked-slot">
                 <span class="crew-slot__label">{{ slotLabel(slotType) }}</span>
                 <span class="crew-locked-slot__icon" aria-hidden="true">🔒</span>
-                <span>Unlock with a stronger ship</span>
+                <span>{{ 'crew.lockedSlot' | translate }}</span>
               </div>
             }
           </div>
@@ -70,8 +70,29 @@
 
       <section class="crew-available-section" aria-labelledby="crew-roster-title">
         <div class="crew-section-heading">
-          <h3 id="crew-roster-title">Crew roster</h3>
-          <span>Unequipped buffs are inactive</span>
+          <h3 id="crew-roster-title">{{ 'crew.roster' | translate }}</h3>
+          <span>{{ 'crew.inactiveHint' | translate }}</span>
+        </div>
+
+        <div class="crew-roster-tabs" role="tablist" [attr.aria-label]="'crew.filter' | translate">
+          <button
+            type="button"
+            role="tab"
+            [attr.aria-selected]="selectedRosterTab() === 'all'"
+            [class.crew-roster-tab--selected]="selectedRosterTab() === 'all'"
+            (click)="selectRosterTab('all')">
+            {{ 'crew.all' | translate }}
+          </button>
+          @for (slotType of rosterTabs; track slotType) {
+            <button
+              type="button"
+              role="tab"
+              [attr.aria-selected]="selectedRosterTab() === slotType"
+              [class.crew-roster-tab--selected]="selectedRosterTab() === slotType"
+              (click)="selectRosterTab(slotType)">
+              {{ slotLabel(slotType) }}
+            </button>
+          }
         </div>
 
         <div
@@ -81,7 +102,7 @@
           [cdkDropListData]="availableCrew"
           [cdkDropListConnectedTo]="slotIds"
           (cdkDropListDropped)="onDropToAvailable($event)">
-          @for (member of allCrew; track member.id) {
+          @for (member of filteredCrew; track member.id) {
             @let unlocked = isUnlocked(member);
             @let assigned = assignedIds.includes(member.id);
 
@@ -106,15 +127,15 @@
 
               <div class="crew-roster-info">
                 @if (!unlocked) {
-                  <span class="crew-status crew-status--locked">LOCKED</span>
-                  <strong>???</strong>
-                  <p>Unlock this pirate to reveal their buff.</p>
+                  <span class="crew-status crew-status--locked">{{ 'crew.status.locked' | translate }}</span>
+                  <strong>{{ 'crew.hiddenName' | translate }}</strong>
+                  <p>{{ 'crew.hiddenBuff' | translate }}</p>
                 } @else {
                   <span class="crew-status" [class.crew-status--equipped]="assigned">
-                    {{ assigned ? 'EQUIPPED · ACTIVE' : 'UNEQUIPPED · INACTIVE' }}
+                    {{ (assigned ? 'crew.status.equipped' : 'crew.status.inactive') | translate }}
                   </span>
                   <strong>{{ member.name }}</strong>
-                  <p>{{ member.description }}</p>
+                  <p>{{ ('crew.' + member.id) | translate }}</p>
                 }
               </div>
             </article>

@@ -2,16 +2,16 @@
      [class.disabled]="!canAfford"
      [ngClass]="'type-' + upgrade.type">
     <div class="upgrade-info">
-        <h3 class="upgrade-name">{{ upgrade.name }}</h3>
-        <p class="upgrade-description">{{ upgrade.description }}</p>
+        <h3 class="upgrade-name">{{ ('upgrade.' + upgrade.id + '.name') | translate }}</h3>
+        <p class="upgrade-description">{{ ('upgrade.' + upgrade.id + '.description') | translate }}</p>
     </div>
     <div class="upgrade-stats">
-        <div class="upgrade-level">Level: {{ level }}</div>
-        <div class="upgrade-cost">Cost: {{ cost | formatNumber }}</div>
+        <div class="upgrade-level">{{ 'upgrade.level' | translate }}: {{ level }}</div>
+        <div class="upgrade-cost">{{ 'upgrade.cost' | translate }}: {{ cost | formatNumber }}</div>
     </div>
     <button class="buy-btn" 
             [disabled]="!canAfford"
             (click)="onBuy()">
-        Buy
+        {{ 'upgrade.buy' | translate }}
     </button>
 </div>

@@ -1,5 +1,44 @@
 <app-offline-modal></app-offline-modal>
 
+<div class="settings-menu" (keydown.escape)="isSettingsMenuOpen = false">
+  <button
+    class="settings-trigger"
+    type="button"
+    [attr.aria-label]="'settings.title' | translate"
+    aria-haspopup="menu"
+    [attr.aria-expanded]="isSettingsMenuOpen"
+    (click)="toggleSettingsMenu()">
+    <svg class="settings-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill-rule="evenodd" d="M9.5 2h5l.65 3.05c.54.2 1.04.49 1.5.85l3.02-.82 2.5 4.33-2.36 2.2c.05.62.05 1.24 0 1.86l2.36 2.2-2.5 4.33-3.02-.82c-.46.36-.96.65-1.5.85L14.5 23h-5l-.65-3.05a7.1 7.1 0 0 1-1.5-.85l-3.02.82-2.5-4.33 2.36-2.2a9 9 0 0 1 0-1.86l-2.36-2.2 2.5-4.33 3.02.82c.46-.36.96-.65 1.5-.85L9.5 2Zm2.5 13.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" clip-rule="evenodd" fill="currentColor" />
+    </svg>
+  </button>
+  @if (isSettingsMenuOpen) {
+    <div class="settings-dropdown" role="menu" [attr.aria-label]="'settings.title' | translate">
+      <button class="settings-item" type="button" role="menuitem" (click)="openLanguageSettings()">
+        <span aria-hidden="true">🌐</span>
+        {{ 'settings.language' | translate }}
+      </button>
+    </div>
+  }
+</div>
+
+@if (isLanguageModalOpen) {
+  <app-modal (close)="closeLanguageSettings()">
+    <h2>{{ 'language.title' | translate }}</h2>
+    <p>{{ 'language.description' | translate }}</p>
+    <div class="language-options" role="group" [attr.aria-label]="'language.title' | translate">
+      <button type="button" [class.language-option--selected]="i18n.language() === 'pt'"
+        [attr.aria-pressed]="i18n.language() === 'pt'" (click)="i18n.setLanguage('pt')">
+        {{ 'language.portuguese' | translate }}
+      </button>
+      <button type="button" [class.language-option--selected]="i18n.language() === 'en'"
+        [attr.aria-pressed]="i18n.language() === 'en'" (click)="i18n.setLanguage('en')">
+        {{ 'language.english' | translate }}
+      </button>
+    </div>
+  </app-modal>
+}
+
 <div id="game-container" class="main-container">
   <div class="column left-column">
     <img src="logo/logo.png" class="logo-img" alt="Paper Boat Pirates">

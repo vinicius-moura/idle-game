@@ -5,7 +5,7 @@
       [class.active]="activeTab() === 'upgrades'"
       [class.solo]="!shipsUnlocked"
       (click)="setTab('upgrades')">
-      Upgrades
+      {{ 'shop.upgrades' | translate }}
     </button>
 
     @if (shipsUnlocked) {
@@ -14,7 +14,7 @@
         class="shop-tab ship"
         [class.active]="activeTab() === 'ship'"
         (click)="setTab('ship')">
-        ⚓ Ships
+        ⚓ {{ 'shop.ships' | translate }}
       </button>
     }
   </div>

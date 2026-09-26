@@ -2,11 +2,12 @@ import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameService } from '../../services/game.service';
 import { Modal } from '../modal/modal';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-prestige',
   standalone: true,
-  imports: [CommonModule, Modal],
+  imports: [CommonModule, Modal, TranslatePipe],
   templateUrl: './prestige.html',
   styleUrl: './prestige.scss'
 })

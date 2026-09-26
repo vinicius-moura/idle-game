@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import Shepherd, { Tour } from 'shepherd.js';
+import { I18nService } from './i18n.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TourService {
+  private readonly i18n = inject(I18nService);
   private tour: Tour | null = null;
   private readonly SHIP_TOUR_KEY = 'paperPiratesShipTourSeen';
   private readonly CLICK_TOUR_KEY = 'paperPiratesClickTourSeen';
@@ -32,12 +34,12 @@ export class TourService {
       id: 'click-tutorial',
       attachTo: { element: '#clicker-btn', on: 'right' },
       text: `
-        <h3>🏴‍☠️ Welcome, Captain!</h3>
-        <p>Click your ship to earn Reputation and build your pirate legend!</p>
+        <h3>🏴‍☠️ ${this.i18n.translate('tour.click.title')}</h3>
+        <p>${this.i18n.translate('tour.click.body')}</p>
       `,
       buttons: [
         {
-          text: "Let's go! ⚓",
+          text: this.i18n.translate('tour.click.button'),
           action: () => {
             localStorage.setItem(this.CLICK_TOUR_KEY, 'true');
             this.tour?.complete();
@@ -64,13 +66,13 @@ export class TourService {
       id: 'ship-unlock',
       attachTo: { element: '#ship-tab', on: 'bottom' },
       text: `
-        <h3>⚓ A new horizon appears, Captain!</h3>
-        <p>Your reputation precedes you. It's time to upgrade your vessel.</p>
-        <p>Bigger ships unlock <strong>crew slots</strong> — and your crew changes everything.</p>
+        <h3>⚓ ${this.i18n.translate('tour.ship.title')}</h3>
+        <p>${this.i18n.translate('tour.ship.body')}</p>
+        <p>${this.i18n.translate('tour.ship.crew')}</p>
       `,
       buttons: [
         {
-          text: 'Set Sail! 🏴‍☠️',
+          text: this.i18n.translate('tour.ship.button'),
           action: () => {
             localStorage.setItem(this.SHIP_TOUR_KEY, 'true');
             this.tour?.complete();
